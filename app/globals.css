@@ -33,6 +33,7 @@
 
   --accent: 144 39% 75%;                /* #A9D8B8 */
   --accent-foreground: 145 60% 20%;     /* Deep green text */
+  --accent-hover: 144 39% 65%; /* Darker green for hover */
 
   --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 0 0% 98%;
@@ -115,10 +116,28 @@
 
     /* buttons */
     .btn-1 {
-        @apply bg-cta hover:bg-ctaHover text-foreground transition-colors;
+        @apply bg-cta hover:bg-ctaHover transition-colors text-foreground ;
     }
     .btn-2 {
         @apply border-cta text-cta hover:bg-cta hover:text-foreground transition-colors;
+    }
+
+    /* header */
+    .header-elements {
+        @apply text-primary hover:text-cta transition-colors;
+    }
+
+    /* footer */
+    .footer-elements {
+        @apply text-muted-foreground hover:text-cta transition-colors;
+    }
+    .footer-elements:hover {
+        @apply inline-block transition-transform duration-200 hover:translate-x-1 hover:text-cta;
+    }
+
+    .back-to-top {
+        @apply fixed bottom-6 right-6 z-50 bg-cta text-white p-3 rounded-full shadow-lg hover:bg-ctaHover transition duration-300;
+
     }
 
 }
