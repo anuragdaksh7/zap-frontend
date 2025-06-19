@@ -130,7 +130,7 @@ const Landing = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background 	font-work-sans">
+    <div className="min-h-screen bg-background font-work-sans">
       {/* Header/Navigation */}
       <header className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -167,7 +167,7 @@ const Landing = () => {
                 FAQ
               </a>
             </nav>
-            <Button className="bg-cta hover:bg-ctaHover text-foreground">
+            <Button className="btn-1">
               Start Free Trial
             </Button>
           </div>
@@ -192,7 +192,7 @@ const Landing = () => {
               <div className="flex flex-col sm:flex-row gap-4 mb-8">
                 <Button
                   size="lg"
-                  className="bg-cta hover:bg-ctaHover text-foreground px-8 py-4 text-lg"
+                  className="btn-1 px-8 py-4 text-lg"
                 >
                   Start Free Trial
                   <ArrowRight className="w-5 h-5 ml-2" />
@@ -200,7 +200,7 @@ const Landing = () => {
                 <Button
                   variant="outline"
                   size="lg"
-                  className="border-cta text-cta hover:bg-cta hover:text-foreground px-8 py-4 text-lg"
+                  className="btn-2 px-8 py-4 text-lg"
                 >
                   <Play className="w-5 h-5 mr-2" />
                   Watch Demo
