@@ -1,5 +1,6 @@
 'use client';
 
+import Cursor from '@/components/Cursor';
 import CTA from '@/components/LandingPage/CTA';
 import FAQ from '@/components/LandingPage/FAQ';
 import Features from '@/components/LandingPage/Features';
@@ -8,7 +9,7 @@ import Header from '@/components/LandingPage/Header';
 import Hero from '@/components/LandingPage/Hero';
 import HowItWorks from '@/components/LandingPage/HowItWorks';
 import Testimonials from '@/components/LandingPage/Testimonials';
-import React from 'react'
+import React from 'react';
 
 const landing = () => {
   return (
@@ -21,6 +22,7 @@ const landing = () => {
       <FAQ />
       <CTA />
       <Footer />
+      <Cursor />
     </div>
   )
 }

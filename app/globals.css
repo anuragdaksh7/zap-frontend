@@ -5,150 +5,169 @@
 @tailwind utilities;
 
 @layer base {
-    :root {
-  --radius: 0.5rem;
+  :root {
+    --radius: 0.5rem;
 
-  --background: 210 40% 95%;            /* #F0F4F8 */
-  --foreground: 215 28% 10%;            /* Charcoal text */
+    --background: 210 40% 95%; /* #F0F4F8 */
+    --foreground: 215 28% 10%; /* Charcoal text */
 
-  --cta: 213 94% 67%;                   /* #60A5FA  - Ruddy Bluen*/
-  --ctaHover: 217 91% 60%;              /* #3B82F6 */
+    --cta: 213 94% 67%; /* #60A5FA  - Ruddy Bluen*/
+    --ctaHover: 217 91% 60%; /* #3B82F6 */
 
-  --warning: 42 100% 67%;               /* #FFC15E -Xanthous Yellow*/
-  
-  --card: 0 0% 100%;
-  --card-foreground: 215 28% 20%;
+    --warning: 42 100% 67%; /* #FFC15E -Xanthous Yellow*/
 
-  --popover: 0 0% 100%;
-  --popover-foreground: 215 28% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 215 28% 20%;
 
-  --primary: 215 28% 28%;               /* #374151 */
-  --primary-foreground: 0 0% 100%;      /* white */
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 28% 10%;
 
-  --secondary: 0 0% 96.1%;
-  --secondary-foreground: 0 0% 9%;
+    --primary: 215 28% 28%; /* #374151 */
+    --primary-foreground: 0 0% 100%; /* white */
 
-  --muted: 215 28% 85%;                 /* Light muted bg */
-  --muted-foreground: 215 28% 40%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
 
-  --accent: 144 39% 75%;                /* #A9D8B8 */
-  --accent-foreground: 145 60% 20%;     /* Deep green text */
-  --accent-hover: 144 39% 65%; /* Darker green for hover */
+    --muted: 215 28% 85%; /* Light muted bg */
+    --muted-foreground: 215 28% 40%;
 
-  --destructive: 0 84.2% 60.2%;
-  --destructive-foreground: 0 0% 98%;
+    --accent: 144 39% 75%; /* #A9D8B8 */
+    --accent-foreground: 145 60% 20%; /* Deep green text */
+    --accent-hover: 144 39% 65%; /* Darker green for hover */
 
-  --border: 215 28% 80%;
-  --input: 215 28% 90%;
-  --ring: 215 28% 70%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
 
-  --chart-1: 144 39% 75%;
-  --chart-2: 213 94% 67%;
-  --chart-3: 48 100% 70%;
-  --chart-4: 0 85% 60%;
-  --chart-5: 30 90% 60%;
-}
+    --border: 215 28% 80%;
+    --input: 215 28% 90%;
+    --ring: 215 28% 70%;
+
+    --chart-1: 144 39% 75%;
+    --chart-2: 213 94% 67%;
+    --chart-3: 48 100% 70%;
+    --chart-4: 0 85% 60%;
+    --chart-5: 30 90% 60%;
+  }
 
   .dark {
-        --background: 0 0% 3.9%;
-        --foreground: 0 0% 98%;
-        --card: 0 0% 3.9%;
-        --card-foreground: 0 0% 98%;
-        --popover: 0 0% 3.9%;
-        --popover-foreground: 0 0% 98%;
-        --primary: 0 0% 98%;
-        --primary-foreground: 0 0% 9%;
-        --secondary: 0 0% 14.9%;
-        --secondary-foreground: 0 0% 98%;
-        --muted: 0 0% 14.9%;
-        --muted-foreground: 0 0% 63.9%;
-        --accent: 0 0% 14.9%;
-        --accent-foreground: 0 0% 98%;
-        --destructive: 0 62.8% 30.6%;
-        --destructive-foreground: 0 0% 98%;
-        --border: 0 0% 14.9%;
-        --input: 0 0% 14.9%;
-        --ring: 0 0% 83.1%;
-        --chart-1: 220 70% 50%;
-        --chart-2: 160 60% 45%;
-        --chart-3: 30 80% 55%;
-        --chart-4: 280 65% 60%;
-        --chart-5: 340 75% 55%;
-    }
+    --background: 0 0% 0%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
 }
 
 @layer utilities {
   .flex-between {
-        @apply flex justify-between items-center;
-    }
+    @apply flex justify-between items-center;
+  }
+  .flex-center {
+    @apply flex justify-center items-center;
+  }
+  .flex-start {
+    @apply flex justify-start items-center;
+  }
 
-    .text-30-extrabold {
-        @apply text-[30px] font-extrabold text-white;
-    }
+  .flex-divide {
+    @apply flex flex-col justify-between items-center;
+  }
 
-    .text-30-bold {
-        @apply text-[30px] font-bold text-black;
-    }
+  .text-30-extrabold {
+    @apply text-[30px] font-extrabold text-white;
+  }
 
-    .text-30-semibold {
-        @apply font-semibold text-[30px] text-black;
-    }
+  .text-30-bold {
+    @apply text-[30px] font-bold text-black;
+  }
 
-    .text-26-semibold {
-        @apply font-semibold text-[26px] text-black;
-    }
+  .text-30-semibold {
+    @apply font-semibold text-[30px] text-black;
+  }
 
-    .text-24-black {
-        @apply text-[24px] font-black text-black;
-    }
+  .text-26-semibold {
+    @apply font-semibold text-[26px] text-black;
+  }
 
-    .text-20-medium {
-        @apply font-medium text-[20px] text-black;
-    }
+  .text-24-black {
+    @apply text-[24px] font-black text-black;
+  }
 
-    .text-16-medium {
-        @apply font-medium text-[16px] text-black;
-    }
+  .text-20-medium {
+    @apply font-medium text-[20px] text-black;
+  }
 
-    .text-14-normal {
-        @apply font-normal text-sm text-white-100/80;
-    }
+  .text-16-medium {
+    @apply font-medium text-[16px] text-black;
+  }
 
-    /* buttons */
-    .btn-1 {
-        @apply bg-cta hover:bg-ctaHover transition-colors text-foreground ;
-    }
-    .btn-2 {
-        @apply border-cta text-cta hover:bg-cta hover:text-foreground transition-colors;
-    }
+  .text-14-normal {
+    @apply font-normal text-sm text-white-100/80;
+  }
 
-    /* header */
-    .header-elements {
-        @apply text-primary hover:text-cta transition-colors;
-    }
+  /* buttons */
+  .btn-1 {
+    @apply bg-cta hover:bg-ctaHover transition-colors text-foreground;
+  }
+  .btn-2 {
+    @apply border-cta text-cta hover:bg-cta hover:text-foreground transition-colors;
+  }
+  .back-to-top {
+    @apply fixed bottom-6 right-6 z-50 bg-cta text-white p-3 rounded-full shadow-lg hover:bg-ctaHover transition duration-300;
+  }
 
-    /* footer */
-    .footer-elements {
-        @apply text-muted-foreground hover:text-cta transition-colors;
-    }
-    .footer-elements:hover {
-        @apply inline-block transition-transform duration-200 hover:translate-x-1 hover:text-cta;
-    }
 
-    .back-to-top {
-        @apply fixed bottom-6 right-6 z-50 bg-cta text-white p-3 rounded-full shadow-lg hover:bg-ctaHover transition duration-300;
+  /* header */
+  .header-elements {
+    @apply text-primary hover:text-cta transition-colors;
+  }
 
-    }
+  /* footer */
+  .footer-elements {
+    @apply text-muted-foreground hover:text-cta transition-colors;
+  }
+  .footer-elements:hover {
+    @apply inline-block transition-transform duration-200 hover:translate-x-1 hover:text-cta;
+  }
 
+  .sidebar-link {
+    @apply flex items-center gap-2 text-sm font-medium text-foreground hover:bg-slate-300 transition-colors p-2 rounded-md w-[90%] cursor-pointer;
+  }
+  .sidebar-active {
+    @apply flex items-center gap-2 text-sm font-medium text-white bg-cta hover:bg-ctaHover transition-colors p-2 rounded-md w-[90%] cursor-pointer;
+  }
+
+  /* cursor */
+  #cursor-dot {
+    box-shadow: 0 0 10px hsl(var(--cta)), 0 0 20px hsl(var(--ctaHover));
+    transition: width 0.2s ease, height 0.2s ease;
+  }
 }
-
-
 
 @layer base {
   * {
     @apply border-border;
-    }
+  }
   body {
-    @apply bg-background text-foreground;
-    }
+    @apply bg-gray-50 text-foreground;
+  }
 }

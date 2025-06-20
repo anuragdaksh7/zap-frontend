@@ -1,6 +1,7 @@
 "use client";
 
 import { Mail, Send, Instagram, Linkedin, Twitter, Github } from "lucide-react";
+import Image from "next/image";
 
 const Footer = () => {
   return (
@@ -10,10 +11,15 @@ const Footer = () => {
           {/* Company Info */}
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 bg-cta rounded-xl flex items-center justify-center shadow-md hover:scale-105 transition">
-                <Mail className="w-5 h-5 text-foreground" />
+              <div className="flex items-center justify-center hover:scale-105 transition">
+                <Image
+                                src="/icon.png"
+                                alt="ZapMail Logo"
+                                width={24}
+                                height={24}
+                              />
               </div>
-              <h2 className="text-xl font-bold text-primary">ZapMail</h2>
+              <h2 className="text-xl font-bold text-primary pt-2 pb-1">ZapMail</h2>
             </div>
             <p className="mb-4 text-sm leading-relaxed">
               AI-powered email automation helping teams scale outreach without
@@ -161,6 +167,8 @@ const Footer = () => {
             </a>
           </div>
         </div>
+        
+        {/* Back to Top Button */}
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           className="back-to-top"
