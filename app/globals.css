@@ -126,10 +126,10 @@
 
   /* buttons */
   .btn-1 {
-    @apply bg-cta hover:bg-ctaHover transition-colors text-foreground;
+    @apply bg-cta  px-8 py-4 text-lg transition-colors text-white hover:bg-ctaHover;
   }
   .btn-2 {
-    @apply border-cta text-cta hover:bg-cta hover:text-foreground transition-colors;
+    @apply border-2 border-accent text-accent-hover px-8 py-4 text-lg font-semibold hover:bg-accent hover:text-white transition-colors;
   }
   .back-to-top {
     @apply fixed bottom-6 right-6 z-50 bg-cta text-white p-3 rounded-full shadow-lg hover:bg-ctaHover transition duration-300;
@@ -148,7 +148,7 @@
   .footer-elements:hover {
     @apply inline-block transition-transform duration-200 hover:translate-x-1 hover:text-cta;
   }
-
+    /* Sidebar Links */
   .sidebar-link {
     @apply flex items-center gap-2 text-sm font-medium text-foreground hover:bg-slate-300 transition-colors p-2 rounded-md w-[90%] cursor-pointer;
   }

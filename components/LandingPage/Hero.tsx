@@ -32,7 +32,7 @@ const Hero = () => {
               <div className="flex flex-col sm:flex-row gap-4 mb-8">
                 <Button
                   size="lg"
-                  className="btn-1 hover:bg-ctaHover px-8 py-4 text-lg"
+                  className="btn-1 "
                 >
                   Start Free Trial
                   <ArrowRight className="w-5 h-5 ml-2" />
@@ -40,7 +40,7 @@ const Hero = () => {
                 <Button
                   variant="outline"
                   size="lg"
-                  className="btn-2 hover:bg-cta hover:text-foreground px-8 py-4 text-lg"
+                  className="btn-2"
                 >
                   <Play className="w-5 h-5 mr-2" />
                   Watch Demo
