@@ -23,11 +23,15 @@ module.exports = {
   			},
   			accent: {
   				DEFAULT: 'hsl(var(--accent))',
-  				foreground: 'hsl(var(--accent-foreground))'
+  				foreground: 'hsl(var(--accent-foreground))',
+				hover: 'hsl(var(--accent-hover))'
   			},
-  			cta: '#60A5FA',
-  			ctaHover: '#3B82F6',
-  			warning: '#FFC15E',
+			cta: 'hsl(var(--cta))',
+            ctaHover: 'hsl(var(--ctaHover))',
+            warning: 'hsl(var(--warning))',
+  			// cta: '#60A5FA',
+  			// ctaHover: '#3B82F6',
+  			// warning: '#FFC15E',
   			background: 'hsl(var(--background))',
   			white: '#FFFFFF',
   			foreground: 'hsl(var(--foreground))',
