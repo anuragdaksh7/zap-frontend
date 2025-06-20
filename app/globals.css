@@ -31,9 +31,9 @@
     --muted: 215 28% 85%; /* Light muted bg */
     --muted-foreground: 215 28% 40%;
 
-    --accent: 144 39% 75%; /* #A9D8B8 */
+    --accent-hover: 144 39% 65%; /* #A9D8B8 */
     --accent-foreground: 145 60% 20%; /* Deep green text */
-    --accent-hover: 144 39% 65%; /* Darker green for hover */
+    --accent: 144 39% 55%; /* Darker green for hover */
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
@@ -131,6 +131,9 @@
   .btn-2 {
     @apply border-2 border-accent text-accent-hover px-8 py-4 text-lg font-semibold hover:bg-accent hover:text-white transition-colors;
   }
+  .btn-3 {
+    @apply border-2 border-accent text-white px-7 py-8 text-xl font-bold bg-accent-hover hover:bg-accent transition-colors;
+  }
   .back-to-top {
     @apply fixed bottom-6 right-6 z-50 bg-cta text-white p-3 rounded-full shadow-lg hover:bg-ctaHover transition duration-300;
   }
@@ -169,5 +172,23 @@
   }
   body {
     @apply bg-gray-50 text-foreground;
+  }
+}
+
+@layer components {
+  .status-running {
+    @apply bg-blue-100 text-blue-700;
+  }
+  .status-error {
+    @apply bg-red-100 text-red-700;
+  }
+  .status-cancelled {
+    @apply bg-gray-100 text-gray-700;
+  }
+  .status-paused {
+    @apply bg-orange-100 text-orange-700;
+  }
+  .status-completed {
+    @apply bg-green-100 text-green-700;
   }
 }

@@ -4,6 +4,7 @@ export default function Layout({
   return (
     <main className="font-work-sans">
       {children}
+      <div className="hidden status-running status-error status-cancelled status-paused status-completed" />
     </main>
   );
 }

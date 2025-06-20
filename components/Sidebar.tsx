@@ -38,7 +38,7 @@ const Sidebar = () => {
     };
   }, [showPopup]);
   return (
-    <div className="h-full w-[15rem] border-x-[0.5px] border-border flex-divide relative">
+    <div className="h-full w-[15rem] border-x-[0.5px] border-border flex-divide relative bg-white">
       <header className="flex-start h-[10vh] w-full border-y-[0.5px] border-border gap-2">
         <div className="bg-cta text-white w-[25px] h-[25px] flex-center ml-3 rounded-sm">
           Z
@@ -48,8 +48,8 @@ const Sidebar = () => {
       <section className="flex flex-col justify-start items-start h-[70vh] mt-3 px-5 w-full gap-2 border-b-[0.5px] border-border">
         <h3 className="text-sm">NAVIGATION</h3>
         <Link
-          className={pathname === "/user" ? "sidebar-active" : "sidebar-link"}
-          href={"/user"}
+          className={pathname === "/user/dashboard" ? "sidebar-active" : "sidebar-link"}
+          href={"/user/dashboard"}
         >
           <LayoutDashboard size={20} /> Dashboard
         </Link>
