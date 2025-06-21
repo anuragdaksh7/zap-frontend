@@ -63,11 +63,11 @@ const Sidebar = () => {
         </Link>
         <Link
           className={
-            pathname === "/user/collections" ? "sidebar-active" : "sidebar-link"
+            pathname === "/user/campaigns" ? "sidebar-active" : "sidebar-link"
           }
-          href={"/user/collections"}
+          href={"/user/campaigns"}
         >
-          <GroupIcon size={20} /> Collections
+          <GroupIcon size={20} /> Campaigns
         </Link>
         <Link
           className={
