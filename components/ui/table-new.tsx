@@ -1,5 +1,4 @@
 import * as React from "react"
-
 import { cn } from "@/lib/utils"
 
 const Table = React.forwardRef<
@@ -9,7 +8,10 @@ const Table = React.forwardRef<
   <div className="relative w-full overflow-auto">
     <table
       ref={ref}
-      className={cn("w-full caption-bottom text-sm", className)}
+      className={cn(
+        "w-full min-w-[1200px] caption-bottom text-sm [&_td]:px-2 [&_th]:px-2 [&_td]:py-2 [&_th]:py-2 [&_td]:whitespace-nowrap [&_td]:truncate",
+        className
+      )}
       {...props}
     />
   </div>
@@ -20,7 +22,11 @@ const TableHeader = React.forwardRef<
   HTMLTableSectionElement,
   React.HTMLAttributes<HTMLTableSectionElement>
 >(({ className, ...props }, ref) => (
-  <thead ref={ref} className={cn("[&_tr]:border-b", className)} {...props} />
+  <thead
+    ref={ref}
+    className={cn("bg-white sticky top-0 z-10 shadow-sm [&_tr]:border-b", className)}
+    {...props}
+  />
 ))
 TableHeader.displayName = "TableHeader"
 
@@ -72,8 +78,11 @@ const TableHead = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <th
     ref={ref}
-    className={cn(
-      "h-10 px-2 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]",
+     className={cn(
+      // Ensures consistent padding, font, height, and layout
+      "h-12 px-3 py-2 text-center align-middle font-semibold text-charcoal text-[13px] leading-tight tracking-wide whitespace-nowrap",
+      "[&:has([role=checkbox])]:pr-0",
+      "[&>[role=checkbox]]:translate-y-[2px]",
       className
     )}
     {...props}
@@ -84,16 +93,19 @@ TableHead.displayName = "TableHead"
 const TableCell = React.forwardRef<
   HTMLTableCellElement,
   React.TdHTMLAttributes<HTMLTableCellElement>
->(({ className, ...props }, ref) => (
+>(({ className, children, ...props }, ref) => (
   <td
     ref={ref}
     className={cn(
-      "p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]",
+      "p-2 align-middle max-w-[180px] truncate whitespace-nowrap overflow-hidden text-ellipsis",
       className
     )}
     {...props}
-  />
-))
+    title={typeof children === "string" ? children : undefined}
+  >
+    {children}
+  </td>
+));
 TableCell.displayName = "TableCell"
 
 const TableCaption = React.forwardRef<

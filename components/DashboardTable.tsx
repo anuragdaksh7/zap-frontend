@@ -104,7 +104,7 @@ export function DashboardTable() {
           <TableRow
             key={campaign._id}
             className="cursor-pointer hover:bg-muted transition"
-            onClick={() => router.push(`/user/campaign/${campaign._id}`)}
+            onClick={() => router.push(`/user/campaigns/${campaign._id}`)}
             tabIndex={0}
             onKeyDown={(e) => {
               if (e.key === "Enter" || e.key === " ") {
