@@ -138,9 +138,9 @@ const CampaignPage = async () => {
   };
 
   return (
-    <div className="min-h-screen flex w-full bg-anti-flash-white">
-      <main className="flex-1 overflow-auto">
-        <div className="sticky top-0 bg-white border-b border-gray-200 p-4 z-10">
+    <div className="min-h-screen w-full bg-anti-flash-white overflow-x-hidden">
+      <main className="flex-1 w-full ">
+        <div className="sticky top-0 z-10 h-[10vh] w-full bg-white border-b border-gray-200 flex items-center p-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <div>
@@ -161,7 +161,7 @@ const CampaignPage = async () => {
           </div>
         </div>
 
-        <div className="p-6">
+        <div className="p-6 w-full">
           {/* Stats Cards */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
             <Card>
@@ -234,7 +234,7 @@ const CampaignPage = async () => {
           {/* Filters and Search */}
 
           {/* Leads Table */}
-          <div className="container mx-auto">
+          <div className="w-full px-0 py-2">
             <DataTable columns={columns} data={data} />
           </div>
         </div>
