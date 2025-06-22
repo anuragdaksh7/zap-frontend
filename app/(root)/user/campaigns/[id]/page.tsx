@@ -1,3 +1,5 @@
+'use client';
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -19,6 +21,8 @@ import Link from "next/link";
 
 import { columns, Lead } from "./columns";
 import { DataTable } from "./data-table";
+import { useState, useEffect } from "react";
+import { CSVDialog } from "@/components/CSVDialog";
 
 // This is temporary mock data
 async function getData(): Promise<Lead[]> {
@@ -127,8 +131,17 @@ async function getData(): Promise<Lead[]> {
   ];
 }
 
-const CampaignPage = async () => {
-  const data = await getData();
+const CampaignPage =() => {
+  const [data, setData] = useState<Lead[]>([]);
+  const [isUploadDialogOpen, setIsUploadDialogOpen] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const leads = await getData();
+      setData(leads);
+    };
+    fetchData();
+  }, []);
 
   const stats = {
     total: data.length,
@@ -140,26 +153,21 @@ const CampaignPage = async () => {
   return (
     <div className="min-h-screen w-full bg-anti-flash-white overflow-x-hidden">
       <main className="flex-1 w-full ">
-        <div className="sticky top-0 z-10 h-[10vh] w-full bg-white border-b border-gray-200 flex items-center p-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <div>
+       <header className="w-full bg-white text-foreground border-b-[1px] px-6 pt-1 mb-8 h-[10vh] flex-between">
+
+            <div className="flex flex-col">
                 <h1 className="text-2xl font-bold text-charcoal">Leads</h1>
                 <p className="text-medium-gray">
                   Manage all your leads across campaigns
                 </p>
-              </div>
             </div>
             <div className="flex items-center space-x-3">
-              {/* <Link to="/leads/upload">
-                  <Button variant="outline" className="border-ruddy-blue text-ruddy-blue hover:bg-ruddy-blue hover:text-white">
+                  <Button variant="outline" className="border-cta text-cta hover:bg-cta hover:text-white" onClick={() => setIsUploadDialogOpen(true)}>
                     <Upload className="w-4 h-4 mr-2" />
                     Upload Leads
                   </Button>
-                </Link> */}
             </div>
-          </div>
-        </div>
+        </header>
 
         <div className="p-6 w-full">
           {/* Stats Cards */}
@@ -239,6 +247,10 @@ const CampaignPage = async () => {
           </div>
         </div>
       </main>
+      <CSVDialog
+                isOpen={isUploadDialogOpen}
+                onClose={() => setIsUploadDialogOpen(false)}
+              />
     </div>
   );
 };
