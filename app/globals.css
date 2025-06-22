@@ -31,9 +31,9 @@
     --muted: 215 28% 85%; /* Light muted bg */
     --muted-foreground: 215 28% 40%;
 
-    --accent-hover: 144 39% 65%; /* #A9D8B8 */
+    --accent: 144 39% 65%; /* #A9D8B8 */
     --accent-foreground: 145 60% 20%; /* Deep green text */
-    --accent: 144 39% 55%; /* Darker green for hover */
+    --accent-hover: 144 39% 55%; /* Darker green for hover */
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;

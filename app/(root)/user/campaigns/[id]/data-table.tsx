@@ -113,7 +113,7 @@ export function DataTable<TData, TValue>({
             {/* Filter btn */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="sm">
+                <Button variant="outline" size="sm" className="hover:border-muted hover:bg-muted">
                   <Filter className="w-4 h-4 mr-2" />
                   Filter
                 </Button>
@@ -208,7 +208,7 @@ export function DataTable<TData, TValue>({
             size="sm"
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
-            className="border-ctaHover text-ctaHover hover:bg-cta hover:text-accent"
+            className="border-ctaHover text-ctaHover hover:bg-cta hover:border-cta hover:text-white"
           >
             Previous
           </Button>
@@ -217,7 +217,7 @@ export function DataTable<TData, TValue>({
             size="sm"
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
-            className="border-accent-foreground text-accent-foreground"
+            className="border-accent-hover text-accent-hover hover:bg-accent hover:border-accent hover:text-white"
           >
             Next
           </Button>
