@@ -38,7 +38,7 @@ const Sidebar = () => {
     };
   }, [showPopup]);
   return (
-    <div className="h-full w-[15rem] border-x-[0.5px] border-border flex-divide relative bg-white">
+    <div className="h-full w-[15%] border-x-[0.5px] border-border flex-divide relative bg-white">
       <header className="flex-start h-[10vh] w-full border-y-[0.5px] border-border gap-2">
         <div className="bg-cta text-white w-[25px] h-[25px] flex-center ml-3 rounded-sm">
           Z

@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/table";
 import { CampaignStatus, statusStyles } from "@/lib/CampaignStatus";
 import { useRouter } from "next/navigation";
+import { format } from "date-fns";
 
 const campaigns = [
   {
@@ -90,7 +91,7 @@ export function DashboardTable() {
   const router = useRouter();
 
   return (
-    <Table>
+    <Table className="overflow-auto">
       <TableCaption>A list of your recent campaigns.</TableCaption>
       <TableHeader>
         <TableRow>
@@ -115,7 +116,9 @@ export function DashboardTable() {
             aria-label={`View campaign ${campaign.name}`}
           >
             <TableCell className="font-medium">{campaign.name}</TableCell>
-            <TableCell>{campaign.date}</TableCell>
+            <TableCell>
+              {format(new Date(campaign.date), "PPP")}
+            </TableCell>
             <TableCell>
               <span
                 className={`inline-flex items-center px-2 py-1 rounded text-xs font-semibold gap-1 ${

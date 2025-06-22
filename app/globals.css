@@ -138,7 +138,6 @@
     @apply fixed bottom-6 right-6 z-50 bg-cta text-white p-3 rounded-full shadow-lg hover:bg-ctaHover transition duration-300;
   }
 
-
   /* header */
   .header-elements {
     @apply text-primary hover:text-cta transition-colors;
@@ -151,7 +150,7 @@
   .footer-elements:hover {
     @apply inline-block transition-transform duration-200 hover:translate-x-1 hover:text-cta;
   }
-    /* Sidebar Links */
+  /* Sidebar Links */
   .sidebar-link {
     @apply flex items-center gap-2 text-sm font-medium text-foreground hover:bg-slate-300 transition-colors p-2 rounded-md w-[90%] cursor-pointer;
   }
@@ -163,6 +162,11 @@
   #cursor-dot {
     box-shadow: 0 0 10px hsl(var(--cta)), 0 0 20px hsl(var(--ctaHover));
     transition: width 0.2s ease, height 0.2s ease;
+  }
+
+  /* heading */
+  .heading {
+    @apply w-full bg-white text-foreground border-b-[1px] px-6 pt-1 mb-8 flex flex-col h-[10vh];
   }
 }
 
