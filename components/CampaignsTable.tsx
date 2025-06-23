@@ -11,8 +11,16 @@ import {
 import { CampaignStatus, statusStyles } from "@/lib/CampaignStatus";
 import { useRouter } from "next/navigation";
 import { format } from "date-fns";
-import { Download, Trash2 } from "lucide-react";
+import { ArrowDownNarrowWide, ChevronDown, ChevronsDownUp, ChevronsUpDown, Download, Trash2 } from "lucide-react";
+import { useState } from "react";
+import { DropdownMenu } from "@radix-ui/react-dropdown-menu";
 
+const runEveryOptions = [
+  { label: "10 mins", value: 10 },
+  { label: "20 mins", value: 20 },
+  { label: "30 mins", value: 30 },
+  { label: "1 hour", value: 60 },
+];
 const campaigns = [
   {
     _id: "1",
@@ -26,7 +34,7 @@ const campaigns = [
   {
     _id: "2",
     name: "Summer Promo",
-    status: "paused",
+    status: "completed",
     date: "2024-07-10T15:30:00.000Z",
     totalProspects: 950,
     processedProspects: 950,
@@ -281,13 +289,15 @@ function downloadCSV(data: any[], filename = "prospects.csv") {
   const header = Object.keys(data[0]);
   const csvRows = [
     header.join(","),
-    ...data.map(row =>
-      header.map(field => {
-        let val = row[field] ?? "";
-        // Escape quotes
-        if (typeof val === "string") val = `"${val.replace(/"/g, '""')}"`;
-        return val;
-      }).join(",")
+    ...data.map((row) =>
+      header
+        .map((field) => {
+          let val = row[field] ?? "";
+          // Escape quotes
+          if (typeof val === "string") val = `"${val.replace(/"/g, '""')}"`;
+          return val;
+        })
+        .join(",")
     ),
   ];
   const csvContent = csvRows.join("\r\n");
@@ -306,6 +316,7 @@ function pluralizeHour(n: number) {
 
 export function CampaignsTable() {
   const router = useRouter();
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
   return (
     <Table className="overflow-auto">
@@ -314,8 +325,7 @@ export function CampaignsTable() {
         <TableRow>
           <TableHead className="w-[220px]">Name</TableHead>
           <TableHead>Date</TableHead>
-          <TableHead>Total Prospects</TableHead>
-          <TableHead>Processed Prospects</TableHead>
+          <TableHead>Prospects</TableHead>
           <TableHead>Run Every</TableHead>
           <TableHead>Status</TableHead>
           <TableHead>Download</TableHead>
@@ -338,22 +348,58 @@ export function CampaignsTable() {
             aria-label={`View campaign ${campaign.name}`}
           >
             <TableCell className="font-medium">{campaign.name}</TableCell>
-            <TableCell>
-              {format(new Date(campaign.date), "PPP")}
+            <TableCell>{format(new Date(campaign.date), "PPP")}</TableCell>
+            <TableCell className="tabular-nums">
+              {campaign.processedProspects} of {campaign.totalProspects}
             </TableCell>
-            <TableCell>{campaign.totalProspects}</TableCell>
-            <TableCell>{campaign.processedProspects}</TableCell>
             <TableCell>
-              {campaign.runEvery} {pluralizeHour(campaign.runEvery)}
+              <div className="relative inline-block w-full flex items-center gap-2">
+                <button
+                  className="py-1 rounded font-semibold transition"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setOpenDropdown(
+                      openDropdown === campaign._id ? null : campaign._id
+                    );
+                  }}
+                >
+                  {campaign.runEvery === 60
+                    ? "1 hour"
+                    : runEveryOptions.find(
+                        (opt) => opt.value === campaign.runEvery
+                      )?.label || `${campaign.runEvery} hours`}
+                </button>
+                <ChevronsUpDown/>
+                {openDropdown === campaign._id && (
+                  <div className="absolute z-10 left-0 mt-1 w-32 bg-white border rounded shadow">
+                    {runEveryOptions.map((opt) => (
+                      <button
+                        key={opt.value}
+                        className="block w-full text-left px-3 py-2 hover:bg-muted"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setOpenDropdown(null);
+                          // You can call your API here later
+                          // e.g. updateRunEvery(campaign._id, opt.value)
+                        }}
+                      >
+                        {opt.label}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
             </TableCell>
             <TableCell>
               <span
                 className={`inline-flex items-center px-2 py-1 rounded text-xs font-semibold gap-1 ${
-                  statusStyles[campaign.status as CampaignStatus]?.className ?? ""
+                  statusStyles[campaign.status as CampaignStatus]?.className ??
+                  ""
                 }`}
               >
                 {statusStyles[campaign.status as CampaignStatus]?.icon}
-                {statusStyles[campaign.status as CampaignStatus]?.label ?? campaign.status}
+                {statusStyles[campaign.status as CampaignStatus]?.label ??
+                  campaign.status}
               </span>
             </TableCell>
             <TableCell>
@@ -361,18 +407,18 @@ export function CampaignsTable() {
                 className="px-1 py-1 rounded bg-blue-100 text-blue-700 hover:bg-blue-200 transition"
                 onClick={() => downloadCSV(prospects)}
               >
-                <Download size={20}/>
+                <Download size={20} />
               </button>
             </TableCell>
             <TableCell>
               <button
                 className="px-1 py-1 rounded bg-red-100 text-red-700 hover:bg-red-200 transition"
-                onClick={e => {
+                onClick={(e) => {
                   e.stopPropagation();
                   // handle delete
                 }}
               >
-                <Trash2 size={20}/>
+                <Trash2 size={20} />
               </button>
             </TableCell>
           </TableRow>

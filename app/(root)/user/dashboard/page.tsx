@@ -1,7 +1,7 @@
 import Component from "@/components/Chart";
 import { DashboardTable } from "@/components/DashboardTable";
-import { Button } from "@/components/ui/button";
-import { PlusSquare } from "lucide-react";
+// import { Button } from "@/components/ui/button";
+// import { PlusSquare } from "lucide-react";
 
 export default function Home() {
   return (
