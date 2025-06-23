@@ -13,7 +13,14 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Boxes } from "lucide-react"
 
-export function DialogDemo() {
+
+interface TemplatesDialogProps {
+  buttonLabel?: string;
+  icon?: React.ReactNode;
+  variant?: "outline" | "default";
+}
+
+export function TemplatesDialog({ buttonLabel, icon}: TemplatesDialogProps) {
   return (
     <Dialog>
       <form>
@@ -22,8 +29,8 @@ export function DialogDemo() {
           variant="outline"
           className="border-cta bg-cta text-white hover:bg-ctaHover hover:text-white"
         >
-          <Boxes className="w-4 h-4 mr-2" />
-          Select Templates
+          {icon}
+         {buttonLabel}
         </Button>
       </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">

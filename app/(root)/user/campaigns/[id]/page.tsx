@@ -27,7 +27,7 @@ import { columns, Lead } from "./columns";
 import { DataTable } from "./data-table";
 import { useState, useEffect } from "react";
 import { CSVDialog } from "@/components/CSVDialog";
-import { DialogDemo } from "@/components/templates";
+import { TemplatesDialog } from "@/components/templates";
 
 // This is temporary mock data
 async function getData(): Promise<Lead[]> {
@@ -166,7 +166,7 @@ const CampaignPage = () => {
             </p>
           </div>
           <div className="flex justify-end space-x-3">
-            <DialogDemo />
+            <TemplatesDialog buttonLabel="Select Templates" icon ={<Boxes className="w-4 h-4 mr-2" />}/>
 
           <div className="flex items-center space-x-3">
             <Button
