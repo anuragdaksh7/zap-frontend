@@ -13,6 +13,10 @@ import {
   Users,
   UserX,
   AlertTriangle,
+  LayoutTemplate,
+  FilePlus,
+  FileSearch,
+  Boxes,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -20,6 +24,7 @@ import { columns, Lead } from "./columns";
 import { DataTable } from "./data-table";
 import { useState, useEffect } from "react";
 import { CSVDialog } from "@/components/CSVDialog";
+import { TemplatesDialog } from "@/components/templates";
 
 // This is temporary mock data
 async function getData(): Promise<Lead[]> {
@@ -118,7 +123,7 @@ async function getData(): Promise<Lead[]> {
   ];
 }
 
-const CampaignPage =() => {
+const CampaignPage = () => {
   const [data, setData] = useState<Lead[]>([]);
 
   useEffect(() => {
