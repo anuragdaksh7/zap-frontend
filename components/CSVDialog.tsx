@@ -246,7 +246,7 @@ export const CSVDialog = ({ dialogLabel, icon }: CSVDialogProps) => {
                     />
                     <Button
                       asChild
-                      className="bg-cta hover:bg-cta-hover text-white relative z-0"
+                      className="btn-1 !p-2 !text-sm"
                     >
                       <label
                         htmlFor="csv-upload"
