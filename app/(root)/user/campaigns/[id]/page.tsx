@@ -1,6 +1,4 @@
 'use client';
-
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -8,7 +6,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import {
   Upload,
   Search,
@@ -27,15 +24,6 @@ import { CSVDialog } from "@/components/CSVDialog";
 // This is temporary mock data
 async function getData(): Promise<Lead[]> {
   return [
-    // Replace this with actual backend data
-    //     async function getData(): Promise<Lead[]> {
-    //   const res = await fetch("https://your-api.com/leads/campaign-id", {
-    //     cache: "no-store",
-    //   })
-    //   const leads = await res.json()
-    //   return leads
-    // }
-
     // Example lead data
     {
       id: "1",
@@ -127,13 +115,11 @@ async function getData(): Promise<Lead[]> {
       notes: "Requested a custom integration",
       linkedinURL: "https://linkedin.com/in/vikramrao",
     },
-    // Add more test data as needed
   ];
 }
 
 const CampaignPage =() => {
   const [data, setData] = useState<Lead[]>([]);
-  const [isUploadDialogOpen, setIsUploadDialogOpen] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -162,10 +148,7 @@ const CampaignPage =() => {
                 </p>
             </div>
             <div className="flex items-center space-x-3">
-                  <Button variant="outline" className="border-cta text-cta hover:bg-cta hover:text-white" onClick={() => setIsUploadDialogOpen(true)}>
-                    <Upload className="w-4 h-4 mr-2" />
-                    Upload Leads
-                  </Button>
+                <CSVDialog dialogLabel="Upload Leads" icon={<Upload className="w-4 h-4 mr-2" />} />
             </div>
         </header>
 
@@ -247,10 +230,6 @@ const CampaignPage =() => {
           </div>
         </div>
       </main>
-      <CSVDialog
-                isOpen={isUploadDialogOpen}
-                onClose={() => setIsUploadDialogOpen(false)}
-              />
     </div>
   );
 };

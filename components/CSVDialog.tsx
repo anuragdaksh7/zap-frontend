@@ -1,8 +1,11 @@
+'use client'
+
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -27,14 +30,14 @@ import React from "react";
 import Papa from "papaparse";
 
 interface CSVDialogProps {
-  isOpen: boolean;
-  onClose: () => void;
+  dialogLabel?: string;
+  icon?:React.ReactNode;
 }
 
 const acceptableCSVFileTypes =
   "application/vnd.openxmlformats-officedocument.spreadsheet.sheet, application/vnd.ms-excel, .csv";
 
-export const CSVDialog = ({ isOpen, onClose }: CSVDialogProps) => {
+export const CSVDialog = ({ dialogLabel, icon }: CSVDialogProps) => {
   const [step, setStep] = useState(1);
   const [parsedData, setParsedData] = useState<any[]>([]);
   const [csvHeaders, setCsvHeaders] = useState<string[]>([]);
@@ -166,7 +169,13 @@ export const CSVDialog = ({ isOpen, onClose }: CSVDialogProps) => {
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button variant="outline" className="border-cta text-cta hover:bg-cta hover:text-white">
+                    {icon}
+                    {dialogLabel}
+                  </Button>
+      </DialogTrigger>
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Upload CSV - Step {step} of 3</DialogTitle>
@@ -462,7 +471,6 @@ export const CSVDialog = ({ isOpen, onClose }: CSVDialogProps) => {
                 className="bg-cta hover:bg-cta-hover text-white"
                 onClick={() => {
                   console.log(parsedData); //full uploaded data
-                  onClose();
                   setUploadedFileName(null);
                   setParsedData([]);
                   setCsvHeaders([]);
