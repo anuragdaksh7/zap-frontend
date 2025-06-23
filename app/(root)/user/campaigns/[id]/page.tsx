@@ -153,6 +153,7 @@ const CampaignPage = () => {
                 </p>
             </div>
             <div className="flex items-center space-x-3">
+                <TemplatesDialog buttonLabel="Select Templates" icon ={<Boxes className="w-4 h-4 mr-2" />}/>
                 <CSVDialog dialogLabel="Upload Leads" icon={<Upload className="w-4 h-4 mr-2" />} />
             </div>
         </header>
