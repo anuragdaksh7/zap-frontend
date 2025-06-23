@@ -5,7 +5,6 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
   Select,
@@ -22,7 +21,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Upload, CheckCircle, Search, AlertCircle } from "lucide-react";
+import { Upload, CheckCircle, Search, AlertCircle, Eye } from "lucide-react";
 import { useState, useRef } from "react";
 import React from "react";
 import Papa from "papaparse";
@@ -57,6 +56,17 @@ export const CSVDialog = ({ isOpen, onClose }: CSVDialogProps) => {
     tags?: string;
     location?: string;
   }>({});
+
+  const allowedFields = [
+    "email",
+    "name",
+    "phone",
+    "company",
+    "position",
+    "linkedin",
+    "tags",
+    "location",
+  ];
 
   const parseCSVFile = (file: File) => {
     setUploadedFileName(file.name);
@@ -96,6 +106,40 @@ export const CSVDialog = ({ isOpen, onClose }: CSVDialogProps) => {
     } else if (file) {
       alert("Please select a CSV file only.");
     }
+  };
+
+  const processParsedData = () => {
+    // Extract email field key for valid,duplicate,invalid emails
+    const emailField = fieldMap.email;
+
+    if (!emailField) {
+      alert("Email column must be mapped.");
+      return;
+    }
+    const seenEmails = new Set<string>();
+    const valids: any[] = [];
+    const duplicates: any[] = [];
+    const invalids: any[] = [];
+
+    parsedData.forEach((row) => {
+      const email = row[emailField]?.toString().trim().toLowerCase();
+
+      const isValidEmail = email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+      if (!isValidEmail) {
+        invalids.push(row);
+      } else if (seenEmails.has(email)) {
+        duplicates.push(row);
+      } else {
+        seenEmails.add(email);
+        valids.push(row);
+      }
+    });
+
+    setValidLeads(valids);
+    setInvalidLeads(invalids);
+    setDuplicateLeads(duplicates);
+    return true;
   };
 
   // Drag and Drop
@@ -276,7 +320,6 @@ export const CSVDialog = ({ isOpen, onClose }: CSVDialogProps) => {
                 { label: "Company", key: "company" },
                 { label: "Position", key: "position" },
                 { label: "LinkedIn URL", key: "linkedin" },
-                { label: "Status", key: "status" },
                 { label: "Tags", key: "tags" },
                 { label: "Location", key: "location" },
               ].map(({ label, key }) => (
@@ -289,11 +332,17 @@ export const CSVDialog = ({ isOpen, onClose }: CSVDialogProps) => {
                       />
                     </SelectTrigger>
                     <SelectContent>
-                      {csvHeaders.map((header) => (
-                        <SelectItem key={header} value={header}>
-                          {header}
-                        </SelectItem>
-                      ))}
+                      {csvHeaders
+                        .filter((header) =>
+                          allowedFields.some((key) =>
+                            header.toLowerCase().includes(key)
+                          )
+                        )
+                        .map((header) => (
+                          <SelectItem key={header} value={header}>
+                            {header}
+                          </SelectItem>
+                        ))}
                     </SelectContent>
                   </Select>
                 </div>
@@ -306,43 +355,10 @@ export const CSVDialog = ({ isOpen, onClose }: CSVDialogProps) => {
               </Button>
               <Button
                 onClick={() => {
-                  // Extract email field key
-                  const emailField = fieldMap.email;
-
-                  if (!emailField) {
-                    alert("Email column must be mapped.");
-                    return;
+                  const success = processParsedData();
+                  if (success) {
+                    setStep(3);
                   }
-
-                  const seenEmails = new Set<string>();
-                  const valids: any[] = [];
-                  const duplicates: any[] = [];
-                  const invalids: any[] = [];
-
-                  parsedData.forEach((row) => {
-                    const email = row[emailField]
-                      ?.toString()
-                      .trim()
-                      .toLowerCase();
-
-                    const isValidEmail =
-                      email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-
-                    if (!isValidEmail) {
-                      invalids.push(row);
-                    } else if (seenEmails.has(email)) {
-                      duplicates.push(row);
-                    } else {
-                      seenEmails.add(email);
-                      valids.push(row);
-                    }
-                  });
-
-                  setValidLeads(valids);
-                  setInvalidLeads(invalids);
-                  setDuplicateLeads(duplicates);
-
-                  setStep(3);
                 }}
                 className="bg-cta hover:bg-cta-hover text-white"
               >
@@ -357,11 +373,12 @@ export const CSVDialog = ({ isOpen, onClose }: CSVDialogProps) => {
           <div className="flex flex-col overflow-hidden">
             <div className="text-center mb-6">
               <div className="flex justify-center items-center mb-2">
-                <CheckCircle className="h-6 w-6 text-green-600 mr-2" />
-                <h3 className="text-lg font-semibold">Upload Complete</h3>
+                <Eye className="h-6 w-6 text-green-600 mr-2" />
+                <h3 className="text-lg font-semibold">Preview</h3>
               </div>
               <p className="text-medium-gray">
-                Your leads have been imported successfully
+                Here’s a quick preview of your uploaded leads before finalizing
+                the import.
               </p>
             </div>
 
@@ -394,9 +411,9 @@ export const CSVDialog = ({ isOpen, onClose }: CSVDialogProps) => {
               </div>
 
               {/* Scrollable Table */}
-              <div className="border rounded-lg overflow-auto max-h-[40vh]">
+              <div className="border rounded-lg overflow-auto max-h-[25vh]">
                 <Table>
-                  <TableHeader>
+                  <TableHeader className="bg-muted text-muted-foreground">
                     <TableRow>
                       <TableHead>Email</TableHead>
                       <TableHead>Full Name</TableHead>
@@ -452,7 +469,7 @@ export const CSVDialog = ({ isOpen, onClose }: CSVDialogProps) => {
                   setStep(1);
                 }}
               >
-                Done
+                Submit
               </Button>
             </div>
           </div>
