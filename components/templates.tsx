@@ -13,6 +13,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, PlusCircle, Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
+import { CreateTemplateDialog } from "./CreateTemplate";
 
 interface Template {
   id: number;
@@ -46,17 +47,17 @@ export function TemplatesDialog({
     );
   };
 
-  const addNewTemplate = () => {
-    const nextId = templates.length + 1;
-    const newTemplate: Template = {
-      id: nextId,
-      name: `Template ${nextId}`,
-      description: "New Created template will be added here",
-      isUserCreated: true,
-      createdAt: new Date(),
-    };
-    setTemplates((prev) => [...prev, newTemplate]);
-  };
+  // const addNewTemplate = () => {
+  //   const nextId = templates.length + 1;
+  //   const newTemplate: Template = {
+  //     id: nextId,
+  //     name: `Template ${nextId}`,
+  //     description: "New Created template will be added here",
+  //     isUserCreated: true,
+  //     createdAt: new Date(),
+  //   };
+  //   setTemplates((prev) => [...prev, newTemplate]);
+  // };
 
   const formatDate = (date: Date) =>
     date.toLocaleDateString("en-US", {
@@ -147,11 +148,7 @@ export function TemplatesDialog({
 
         <DialogFooter className="mt-4">
           <div className="flex justify-between w-full">
-            <Button variant="outline" onClick={addNewTemplate}>
-              <PlusCircle className="w-4 h-4 mr-2" />
-              Create New Template
-            </Button>
-
+              <CreateTemplateDialog/>
             <div className="flex gap-2">
               <DialogClose asChild>
                 <Button variant="outline">Cancel</Button>

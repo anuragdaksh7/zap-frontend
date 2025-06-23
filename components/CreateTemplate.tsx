@@ -19,7 +19,7 @@ Alice
 `;
 
 export const CreateTemplateDialog = ({
-  dialogLabel = "Create Template",
+  dialogLabel = "+ Create Template",
   icon,
 }: {
   dialogLabel?: string;
