@@ -125,6 +125,8 @@
   }
 
   /* buttons */
+
+  /* Landing page */
   .btn-1 {
     @apply bg-cta  px-8 py-4 text-lg transition-colors text-white hover:bg-ctaHover;
   }
@@ -138,18 +140,28 @@
     @apply fixed bottom-6 right-6 z-50 bg-cta text-white p-3 rounded-full shadow-lg hover:bg-ctaHover transition duration-300;
   }
 
-  /* header */
+  /* navigation pages */
+
+  .btn-fill {
+    @apply bg-cta text-white hover:bg-ctaHover;
+  }
+  .btn-hollow {
+    @apply border-cta text-cta hover:bg-cta hover:text-white;
+  }
+
+  /* header landing page */
   .header-elements {
     @apply text-primary hover:text-cta transition-colors;
   }
 
-  /* footer */
+  /* footer landing page */
   .footer-elements {
     @apply text-muted-foreground hover:text-cta transition-colors;
   }
   .footer-elements:hover {
     @apply inline-block transition-transform duration-200 hover:translate-x-1 hover:text-cta;
   }
+  
   /* Sidebar Links */
   .sidebar-link {
     @apply flex items-center gap-2 text-sm font-medium text-foreground hover:bg-slate-300 transition-colors p-2 rounded-md w-[90%] cursor-pointer;

@@ -48,28 +48,30 @@ export const CreateTemplateDialog = ({
       <DialogTrigger asChild>
         <Button
           variant="outline"
-          className="border-cta text-cta hover:bg-cta hover:text-white"
+          className="btn-hollow"
         >
           {icon}
           {dialogLabel}
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-w-xl">
+
+      <DialogContent className="max-w-3xl bg-background p-6 rounded-xl shadow-lg">
         <DialogHeader>
-          <DialogTitle>
-            {showSample ? "Sample Email" : "Create Email Template"}
+          <DialogTitle className="text-xl font-semibold text-foreground mb-2">
+            {showSample ? " Sample Email" : " Create Email Template"}
           </DialogTitle>
         </DialogHeader>
+
         {!showSample ? (
-          <div className="flex flex-col gap-6 mt-2">
+          <div className="flex flex-col gap-5 mt-2">
             <div className="flex gap-4">
               <input
                 type="text"
                 name="senderName"
                 value={formData.senderName}
                 onChange={handleChange}
-                placeholder="sender name"
-                className="flex-1 p-4 bg-transparent border border-black rounded text-black placeholder-black text-lg"
+                placeholder="Sender name"
+                className="flex-1 p-3 border border-border rounded-md text-base bg-muted/50 placeholder-muted-foreground focus:outline-cta"
               />
               <input
                 type="text"
@@ -77,44 +79,47 @@ export const CreateTemplateDialog = ({
                 value={formData.subject}
                 onChange={handleChange}
                 placeholder="Subject"
-                className="flex-1 p-4 bg-transparent border border-black rounded text-black placeholder-black text-lg"
+                className="flex-1 p-3 border border-border rounded-md text-base bg-muted/50 placeholder-muted-foreground focus:outline-cta"
               />
             </div>
+
             <textarea
               name="prompt"
               value={formData.prompt}
               onChange={handleChange}
-              placeholder="add writing instructions and tone"
-              className="w-full h-48 p-4 bg-transparent border border-black rounded text-black placeholder-black text-lg resize-none"
+              placeholder="Add writing instructions, tone, and details..."
+              className="w-full h-40 p-3 border border-border rounded-md text-base bg-muted/50 placeholder-muted-foreground resize-none focus:outline-cta"
             />
-            <div className="flex gap-4 justify-center mt-2">
+
+            <div className="flex justify-center gap-4 pt-4">
               <Button
-                type="button"
-                className="border border-cta text-cta text-md hover:bg-cta hover:text-white"
+                variant="outline"
+                className="btn-hollow"
                 onClick={() => setShowSample(true)}
               >
-                View sample email
+                 View Sample
               </Button>
-              <Button type="button" className="btn-1" onClick={handleSave}>
-                Save
+              <Button className="btn-fill" onClick={handleSave}>
+                 Save Template
               </Button>
             </div>
           </div>
         ) : (
-          <div className="flex flex-col gap-6 mt-2">
-            <div className="bg-gray-100 border border-black rounded p-4 text-black whitespace-pre-line min-h-[200px]">
+          <div className="flex flex-col gap-5 mt-4">
+            <div className="bg-muted border border-border rounded-md p-4 text-sm text-foreground whitespace-pre-line min-h-[200px]">
               {SAMPLE_EMAIL}
             </div>
-            <div className="flex gap-4 justify-center mt-2">
+
+            <div className="flex justify-center gap-4 pt-4">
               <Button
-                type="button"
-                className="border border-cta text-cta text-md hover:bg-cta hover:text-white"
+                variant="outline"
+                className="btn-hollow"
                 onClick={() => setShowSample(false)}
               >
-                Edit prompt
+                Edit Prompt
               </Button>
-              <Button type="button" className="btn-1" onClick={handleSave}>
-                Save
+              <Button className="btn-fill" onClick={handleSave}>
+                Save Template
               </Button>
             </div>
           </div>

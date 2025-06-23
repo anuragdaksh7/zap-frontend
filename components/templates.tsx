@@ -155,7 +155,7 @@ export function TemplatesDialog({
               </DialogClose>
               <DialogClose asChild>
                 <Button
-                  className="bg-cta text-white hover:bg-ctaHover"
+                  className="btn-fill"
                   onClick={() =>
                     console.log("Selected Template IDs:", selectedTemplateIds)
                   }

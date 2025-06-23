@@ -171,7 +171,7 @@ export const CSVDialog = ({ dialogLabel, icon }: CSVDialogProps) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline" className="border-cta text-cta hover:bg-cta hover:text-white">
+        <Button variant="outline" className="btn-hollow">
                     {icon}
                     {dialogLabel}
                   </Button>
