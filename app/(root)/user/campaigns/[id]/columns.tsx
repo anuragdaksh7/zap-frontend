@@ -6,6 +6,7 @@ import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Linkedin } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { EmailSidePanel } from "@/components/EmailSidepanel/EmailSidePanel"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -79,10 +80,46 @@ export const columns: ColumnDef<Lead>[] = [
         Full Name <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
     ),
+    cell: ({ row }) => {
+    const name = row.getValue("fullName") as string;
+    const email = row.getValue("email") as string;
+    return (
+      <EmailSidePanel
+        trigger={
+          <span className="hover:font-medium cursor-pointer">
+            {name}
+          </span>
+        }
+        rowData={{
+          name,
+          email,
+          // profileUrl: "https://i.pravatar.cc/150?u=" + row.getValue("email"),
+        }
+        }
+      />
+    );
+  },
   },
   {
     accessorKey: "email",
     header: "Email",
+    cell: ({ row }) => {
+      const name = row.getValue("fullName") as string;
+      const email = row.getValue("email") as string;
+      return (
+        <EmailSidePanel
+          trigger={
+            <span className="cursor-pointer hover:underline">
+              {email}
+            </span>
+          }
+          rowData={{
+            name,
+            email,
+          }}
+          />
+      );
+    },
   },
   {
     accessorKey: "phone",
