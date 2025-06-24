@@ -198,12 +198,6 @@ const CampaignPage = () => {
                 <div className="text-2xl font-bold text-yellow-600">
                   {stats.unsubscribed.toLocaleString()}
                 </div>
-                <Link
-                  href="/buffer-unsubscribed"
-                  className="text-xs text-yellow-600 hover:underline"
-                >
-                  View all →
-                </Link>
               </CardContent>
             </Card>
 
@@ -218,12 +212,6 @@ const CampaignPage = () => {
                 <div className="text-2xl font-bold text-red-600">
                   {stats.blacklisted.toLocaleString()}
                 </div>
-                <Link
-                  href="/buffer-blacklist"
-                  className="text-xs text-red-600 hover:underline"
-                >
-                  Manage →
-                </Link>
               </CardContent>
             </Card>
           </div>

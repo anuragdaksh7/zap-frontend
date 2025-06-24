@@ -1,8 +1,12 @@
 import React from 'react'
+import ViewEmail from '../../../../components/EmailSidepanel/ViewEmail';
+import ResponseEmail from '../../../../components/EmailSidepanel/ResponseEmail';
 
 const page = () => {
   return (
-    <div>page</div>
+    <div className=''>
+      page
+    </div>
   )
 }
 

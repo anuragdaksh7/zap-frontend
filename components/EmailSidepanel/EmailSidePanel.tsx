@@ -1,12 +1,7 @@
-// components/EmailSidePanel.tsx
-
 "use client";
 import {
   Sheet,
-  SheetClose,
   SheetContent,
-  SheetDescription,
-  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -14,15 +9,12 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Avatar } from "@radix-ui/react-avatar";
-import { Card, CardContent } from "../ui/card";
-import { cn } from "@/lib/utils";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Inbox from "./Inbox";
-import EditEmail from "./EditEmail";
 import ViewEmail from "./ViewEmail";
-import { Sparkles } from "lucide-react";
+import { Wand2, X } from "lucide-react";
+import ResponseEmail from "./ResponseEmail";
 
 interface EmailSidePanelProps {
   trigger: React.ReactNode;
@@ -32,9 +24,19 @@ interface EmailSidePanelProps {
   };
 }
 
+interface Msg {
+  id: number;
+  text: string;
+  sender: "me" | "them";
+  timestamp: string;
+}
+
 export function EmailSidePanel({ trigger, rowData }: EmailSidePanelProps) {
   const [activeTabs, setActiveTabs] = useState<string[]>(["inbox"]);
   const [activeTab, setActiveTab] = useState("inbox");
+  const [replyReference, setReplyReference] = useState<Msg | null>(null);
+  const [prompt, setPrompt] = useState("");
+
   const openTab = (type: "view" | "edit") => {
     const tabKey = type === "view" ? "view" : "edit";
     if (!activeTabs.includes(tabKey)) {
@@ -47,17 +49,16 @@ export function EmailSidePanel({ trigger, rowData }: EmailSidePanelProps) {
     setActiveTabs((prev) => prev.filter((tab) => tab !== key));
     if (activeTab === key) setActiveTab("inbox");
   };
-
   return (
     <Sheet>
       <SheetTrigger asChild>{trigger}</SheetTrigger>
-      <SheetContent className="w-[600px] sm:max-w-none p-0 flex flex-col h-full gap-0">
+      <SheetContent className="w-[37rem] sm:max-w-none p-0 flex flex-col h-full gap-0">
         {/* Header of email box */}
         <SheetHeader>
           <SheetTitle className="flex flex-col justify-evenly bg-muted top-0">
             <div className="flex items-center gap-4 p-4 border-b bg-muted">
-              <Avatar className="flex-center border bg-cta text-white w-10 h-10 rounded-full border">
-                I
+              <Avatar className="flex-center border bg-cta text-white w-10 h-10 rounded-full">
+                JD
               </Avatar>
               <div className="flex flex-col">
                 <span className="font-semibold">{rowData.name}</span>
@@ -76,7 +77,7 @@ export function EmailSidePanel({ trigger, rowData }: EmailSidePanelProps) {
         <Tabs
           value={activeTab}
           onValueChange={setActiveTab}
-          className="flex-1 overflow-hidden"
+          className="flex-1 overflow-auto"
         >
           <TabsList className="rounded-bl-none rounded-tl-none">
             <TabsTrigger value="inbox">Inbox</TabsTrigger>
@@ -87,15 +88,21 @@ export function EmailSidePanel({ trigger, rowData }: EmailSidePanelProps) {
                 className="flex items-center justify-between gap-1 pr-2"
               >
                 <span>View Email</span>
-                <button
+                <span
                   onClick={(e) => {
                     e.stopPropagation();
                     closeTab("view");
                   }}
-                  className="text-red-500 hover:text-red-600 text-sm ml-1"
+                  className="text-red-500 hover:text-red-600 text-sm ml-1 cursor-pointer"
+                  tabIndex={0}
+                  role="button"
+                  aria-label="Close view tab"
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") closeTab("view");
+                  }}
                 >
-                  ✕
-                </button>
+                  <X />
+                </span>
               </TabsTrigger>
             )}
 
@@ -105,15 +112,13 @@ export function EmailSidePanel({ trigger, rowData }: EmailSidePanelProps) {
                 className="flex items-center justify-between gap-1 pr-2"
               >
                 <span>Edit Email</span>
-                <button
+                <X
                   onClick={(e) => {
                     e.stopPropagation();
                     closeTab("edit");
                   }}
                   className="text-red-500 hover:text-red-600 text-sm ml-1"
-                >
-                  ✕
-                </button>
+                />
               </TabsTrigger>
             )}
           </TabsList>
@@ -123,7 +128,7 @@ export function EmailSidePanel({ trigger, rowData }: EmailSidePanelProps) {
             value="inbox"
             className="flex-1 overflow-y-auto px-4 py-2 space-y-2 bg-background"
           >
-            <Inbox openTab={openTab} />
+            <Inbox openTab={openTab} setReplyReference={setReplyReference} />
           </TabsContent>
 
           {/* Single Click View */}
@@ -132,7 +137,7 @@ export function EmailSidePanel({ trigger, rowData }: EmailSidePanelProps) {
             className="flex-1 overflow-y-auto px-4 py-2 bg-background"
           >
             {/* Replace this with view email box file*/}
-            <ViewEmail /> 
+            <ViewEmail />
           </TabsContent>
 
           {/* Double Click View */}
@@ -140,24 +145,60 @@ export function EmailSidePanel({ trigger, rowData }: EmailSidePanelProps) {
             value="edit"
             className="flex-1 overflow-y-auto px-4 py-2 bg-background"
           >
-            {/* Replace this with edit email box file */}
-            <EditEmail />
+            <ResponseEmail />
           </TabsContent>
         </Tabs>
-
+        {replyReference && (
+          <div className="mx-6 mt-2 mb-0 flex items-start gap-2">
+            <div
+              className={`
+        w-full px-4 py-2 rounded-lg text-sm shadow-sm border-l-4 bg-white text-foreground border-cta mr-auto rounded-bl-none relative
+      `}
+              style={{ opacity: 0.95 }}
+            >
+              <button
+                onClick={() => setReplyReference(null)}
+                className="absolute top-2 right-2 text-muted-foreground hover:text-red-500 p-1 rounded transition"
+                aria-label="Cancel reply"
+                type="button"
+              >
+                <X className="w-4 h-4" />
+              </button>
+              <span className="block font-semibold text-cta mb-1 text-xs">
+                Replying to:
+              </span>
+              <span className="block">{replyReference.text}</span>
+              <span className="block text-[0.7rem] text-muted-foreground mt-1">
+                {replyReference.timestamp}
+              </span>
+            </div>
+          </div>
+        )}
         {/* send email input box */}
         <div className="px-6 py-4 border-t bg-white">
           <div className="flex items-center gap-2">
-            <Input placeholder="Reply Here..." className="flex-1" />
+            <Input
+              value={prompt}
+              onChange={(e) => setPrompt(e.target.value)}
+              placeholder="Write a prompt to generate a reply..."
+              className="flex-1 active:border-cta focus:border-cta"
+            />
             <Button
               variant="outline"
               size="icon"
               title="Generate AI Reply"
+              className="bg-cta hover:bg-ctaHover text-white"
               onClick={() => openTab("edit")}
+              disabled={!prompt.trim()}
             >
-              <Sparkles className="w-4 h-4" />
+              <Wand2 className="w-4 h-4" />
             </Button>
-            <Button>Send</Button>
+            <Button
+              className="border border-cta hover:bg-ctaHover hover:text-white"
+              disabled={!prompt.trim()}
+            >
+              Send
+            </Button>
           </div>
         </div>
       </SheetContent>

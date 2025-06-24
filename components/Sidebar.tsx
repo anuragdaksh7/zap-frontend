@@ -46,7 +46,6 @@ const Sidebar = () => {
         <h1 className="font-bold text-xl text-foreground">ZapMail</h1>
       </header>
       <section className="flex flex-col justify-start items-start h-[70vh] mt-3 px-5 w-full gap-2 border-b-[0.5px] border-border">
-        <h3 className="text-sm">NAVIGATION</h3>
         <Link
           className={pathname === "/user/dashboard" ? "sidebar-active" : "sidebar-link"}
           href={"/user/dashboard"}
@@ -85,9 +84,6 @@ const Sidebar = () => {
         >
           <Tag size={20} /> Tags
         </Link>
-        <div className="sidebar-link">
-          <Search size={20} /> Search
-        </div>
       </section>
       <footer className="h-[20vh] flex-center w-full relative" ref={footerRef}>
         {showPopup && (
