@@ -14,25 +14,26 @@ interface InboxProps {
 }
 const Inbox = ({openTab}: InboxProps) => {
     const [messages] = useState<Msg[]>([
-        {
-          id: 1,
-          text: "Hey there! Just wanted to check in.",
-          sender: "them",
-          timestamp: "10:30 AM",
-        },
-        {
-          id: 2,
-          text: "All good here! Working on the report.",
-          sender: "me",
-          timestamp: "10:32 AM",
-        },
-        {
-          id: 3,
-          text: "Great! Ping me once done.",
-          sender: "them",
-          timestamp: "10:35 AM",
-        },
-      ]);
+  {
+    id: 1,
+    text: "Meeting Reminder: Project Sync at 3 PM",
+    sender: "them",
+    timestamp: "10:30 AM",
+  },
+  {
+    id: 2,
+    text: "Re: Updated Budget Proposal Attached",
+    sender: "me",
+    timestamp: "10:32 AM",
+  },
+  {
+    id: 3,
+    text: "Upcoming Webinar: AI Trends in 2025",
+    sender: "them",
+    timestamp: "10:35 AM",
+  },
+]);
+
   return (
     <div className="flex flex-col h-[500px] overflow-y-auto px-4 py-2 space-y-2 bg-background">
                   {messages.map((Msg) => (
