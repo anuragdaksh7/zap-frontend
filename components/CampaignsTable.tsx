@@ -364,7 +364,7 @@ export function CampaignsTable() {
               {campaign.processedProspects} of {campaign.totalProspects}
             </TableCell>
             <TableCell>
-              <div className="relative inline-block w-full flex items-center gap-2">
+              <div className="relative w-full flex items-center gap-2">
                 <button
                   className="py-1 rounded font-semibold transition"
                   onClick={(e) => {
