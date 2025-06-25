@@ -10,7 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Avatar } from "@radix-ui/react-avatar";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Inbox from "./Inbox";
 import ViewEmail from "./ViewEmail";
 import { Wand2, X } from "lucide-react";

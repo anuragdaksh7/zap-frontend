@@ -1,6 +1,5 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { Mail } from "lucide-react";
 import Image from "next/image";
 
 const Header = () => {

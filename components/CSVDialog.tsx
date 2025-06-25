@@ -24,7 +24,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Upload, CheckCircle, Search, AlertCircle, Eye } from "lucide-react";
+import { Upload, AlertCircle, Eye } from "lucide-react";
 import { useState, useRef } from "react";
 import React from "react";
 import Papa from "papaparse";

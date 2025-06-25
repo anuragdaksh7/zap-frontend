@@ -2,23 +2,16 @@
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import {
   Upload,
-  Search,
-  Filter,
   Users,
   UserX,
   AlertTriangle,
-  LayoutTemplate,
-  FilePlus,
-  FileSearch,
   Boxes,
 } from "lucide-react";
-import Link from "next/link";
 
 import { columns, Lead } from "./columns";
 import { DataTable } from "./data-table";

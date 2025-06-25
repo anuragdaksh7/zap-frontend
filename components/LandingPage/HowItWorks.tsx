@@ -1,4 +1,5 @@
 import { steps } from "./data";
+
 const HowItWorks = () => {
   return (
     <section id="how-it-works" className="py-20 bg-background">

@@ -5,7 +5,6 @@ import {
   LayoutDashboard,
   LogOut,
   Pin,
-  Search,
   Settings,
   Tag,
   User,

@@ -11,9 +11,8 @@ import {
 import { CampaignStatus, statusStyles } from "@/lib/CampaignStatus";
 import { useRouter } from "next/navigation";
 import { format } from "date-fns";
-import { ArrowDownNarrowWide, ChevronDown, ChevronsDownUp, ChevronsUpDown, Download, Trash2 } from "lucide-react";
+import { ChevronsUpDown, Download, Trash2 } from "lucide-react";
 import { useState } from "react";
-import { DropdownMenu } from "@radix-ui/react-dropdown-menu";
 
 const runEveryOptions = [
   { label: "10 mins", value: 10 },
