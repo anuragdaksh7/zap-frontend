@@ -93,7 +93,7 @@ export function EmailSidePanel({ trigger, rowData }: EmailSidePanelProps) {
                     e.stopPropagation();
                     closeTab("view");
                   }}
-                  className="text-red-500 hover:text-red-600 text-sm ml-1 cursor-pointer"
+                  className="text-muted-foreground hover:text-red-600 text-sm ml-1 cursor-pointer"
                   tabIndex={0}
                   role="button"
                   aria-label="Close view tab"
@@ -101,7 +101,7 @@ export function EmailSidePanel({ trigger, rowData }: EmailSidePanelProps) {
                     if (e.key === "Enter" || e.key === " ") closeTab("view");
                   }}
                 >
-                  <X />
+                  <X className="w-4 h-4" />
                 </span>
               </TabsTrigger>
             )}
@@ -117,7 +117,7 @@ export function EmailSidePanel({ trigger, rowData }: EmailSidePanelProps) {
                     e.stopPropagation();
                     closeTab("edit");
                   }}
-                  className="text-red-500 hover:text-red-600 text-sm ml-1"
+                  className="text-muted-foreground w-4 h-4 hover:text-red-600 text-sm ml-1"
                 />
               </TabsTrigger>
             )}
@@ -149,10 +149,11 @@ export function EmailSidePanel({ trigger, rowData }: EmailSidePanelProps) {
           </TabsContent>
         </Tabs>
         {replyReference && (
-          <div className="mx-6 mt-2 mb-0 flex items-start gap-2">
+          <div className="bg-white">
+            <div className="ml-6 mr-2 mt-2 mb-0 flex items-start gap-2">
             <div
               className={`
-        w-full px-4 py-2 rounded-lg text-sm shadow-sm border-l-4 bg-white text-foreground border-cta mr-auto rounded-bl-none relative
+        w-full px-4 py-2 rounded-lg text-sm shadow-sm border-t-2 border-l-4 bg-background text-foreground border-muted border-l-cta  mr-auto  relative
       `}
               style={{ opacity: 0.95 }}
             >
@@ -173,9 +174,11 @@ export function EmailSidePanel({ trigger, rowData }: EmailSidePanelProps) {
               </span>
             </div>
           </div>
+          </div>
+          
         )}
         {/* send email input box */}
-        <div className="px-6 py-4 border-t bg-white">
+        <div className={`px-6 py-4 bg-white ${!replyReference ? "border-t" : ""}`}>
           <div className="flex items-center gap-2">
             <Input
               value={prompt}
