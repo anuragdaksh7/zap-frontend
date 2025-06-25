@@ -3,6 +3,7 @@ import { RootState } from "@/lib/store";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 export interface UserState {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   user: any,
   access_token: string
 }
