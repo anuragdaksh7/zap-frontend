@@ -2,29 +2,22 @@
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import {
   Upload,
-  Search,
-  Filter,
   Users,
   UserX,
   AlertTriangle,
-  LayoutTemplate,
-  FilePlus,
-  FileSearch,
   Boxes,
 } from "lucide-react";
-import Link from "next/link";
 
 import { columns, Lead } from "./columns";
 import { DataTable } from "./data-table";
 import { useState, useEffect } from "react";
 import { CSVDialog } from "@/components/CSVDialog";
-import { TemplatesDialog } from "@/components/templates";
+import { TemplatesDialog } from "@/components/Templates";
 
 // This is temporary mock data
 async function getData(): Promise<Lead[]> {

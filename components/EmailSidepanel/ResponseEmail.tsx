@@ -12,18 +12,7 @@ Best regards,
 Alice`
 };
 
-interface Msg {
-  id: number;
-  text: string;
-  sender: "me" | "them";
-  timestamp: string;
-}
-
-interface ResponseEmailProps {
-  replyReference?: Msg | null;
-}
-
-const ResponseEmail = ({ replyReference }: ResponseEmailProps) => {
+const ResponseEmail = () => {
   const [email, setEmail] = useState(initialEmail);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { cn } from "@/lib/utils";
-import { Tabs } from "../ui/tabs";
 
 interface Msg {
   id: number;

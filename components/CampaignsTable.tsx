@@ -11,9 +11,24 @@ import {
 import { CampaignStatus, statusStyles } from "@/lib/CampaignStatus";
 import { useRouter } from "next/navigation";
 import { format } from "date-fns";
-import { ArrowDownNarrowWide, ChevronDown, ChevronsDownUp, ChevronsUpDown, Download, Trash2 } from "lucide-react";
+import { ChevronsUpDown, Download, Trash2 } from "lucide-react";
 import { useState } from "react";
-import { DropdownMenu } from "@radix-ui/react-dropdown-menu";
+
+type Prospect = {
+  CampaignID: number;
+  FullName: string;
+  Email: string;
+  Phone: string;
+  Company: string;
+  Position: string;
+  LinkedInURL: string;
+  Status: string;
+  Tags: string;
+  Location: string;
+  LastContact: string;
+  ResponseAt: string;
+  Notes: string;
+};
 
 const runEveryOptions = [
   { label: "10 mins", value: 10 },
@@ -285,14 +300,14 @@ const prospects = [
   },
 ];
 
-function downloadCSV(data: any[], filename = "prospects.csv") {
+function downloadCSV(data: Prospect[], filename = "prospects.csv") {
   const header = Object.keys(data[0]);
   const csvRows = [
     header.join(","),
     ...data.map((row) =>
       header
         .map((field) => {
-          let val = row[field] ?? "";
+          let val = row[field as keyof Prospect] ?? "";
           // Escape quotes
           if (typeof val === "string") val = `"${val.replace(/"/g, '""')}"`;
           return val;
@@ -308,10 +323,6 @@ function downloadCSV(data: any[], filename = "prospects.csv") {
   a.download = filename;
   a.click();
   URL.revokeObjectURL(url);
-}
-
-function pluralizeHour(n: number) {
-  return n === 1 ? "hour" : "hours";
 }
 
 export function CampaignsTable() {

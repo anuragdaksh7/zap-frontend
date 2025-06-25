@@ -31,7 +31,7 @@ const Testimonials = () => {
                     ))}
                   </div>
                   <p className="text-gray-700 mb-4 leading-relaxed">
-                    "{testimonial.content}"
+                    &quot;{testimonial.content}&quot;
                   </p>
                   <div>
                     <p className="font-semibold text-primary">

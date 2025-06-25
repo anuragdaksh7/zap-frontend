@@ -11,7 +11,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { CheckCircle2, PlusCircle, Trash2 } from "lucide-react";
+import { CheckCircle2, Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { CreateTemplateDialog } from "./CreateTemplate";
 

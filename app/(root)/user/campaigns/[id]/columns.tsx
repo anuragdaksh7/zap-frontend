@@ -86,7 +86,7 @@ export const columns: ColumnDef<Lead>[] = [
     return (
       <EmailSidePanel
         trigger={
-          <span className="hover:font-medium cursor-pointer">
+          <span className="hover:underline cursor-pointer">
             {name}
           </span>
         }

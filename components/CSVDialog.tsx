@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import {
   Dialog,
@@ -24,29 +24,39 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Upload, CheckCircle, Search, AlertCircle, Eye } from "lucide-react";
+import { Upload, AlertCircle, Eye } from "lucide-react";
 import { useState, useRef } from "react";
 import React from "react";
 import Papa from "papaparse";
 
 interface CSVDialogProps {
   dialogLabel?: string;
-  icon?:React.ReactNode;
+  icon?: React.ReactNode;
 }
 
-const acceptableCSVFileTypes =
-  "application/vnd.openxmlformats-officedocument.spreadsheet.sheet, application/vnd.ms-excel, .csv";
+type Lead = {
+  email?: string;
+  name?: string;
+  phone?: string;
+  company?: string;
+  position?: string;
+  linkedin?: string;
+  status?: string;
+  tags?: string;
+  location?: string;
+  [key: string]: string | undefined;
+};
 
 export const CSVDialog = ({ dialogLabel, icon }: CSVDialogProps) => {
   const [step, setStep] = useState(1);
-  const [parsedData, setParsedData] = useState<any[]>([]);
+  const [parsedData, setParsedData] = useState<Lead[]>([]);
   const [csvHeaders, setCsvHeaders] = useState<string[]>([]);
   const [uploadedFileName, setUploadedFileName] = useState<string | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [validLeads, setValidLeads] = useState<any[]>([]);
-  const [invalidLeads, setInvalidLeads] = useState<any[]>([]);
-  const [duplicateLeads, setDuplicateLeads] = useState<any[]>([]);
+  const [validLeads, setValidLeads] = useState<Lead[]>([]);
+  const [invalidLeads, setInvalidLeads] = useState<Lead[]>([]);
+  const [duplicateLeads, setDuplicateLeads] = useState<Lead[]>([]);
 
   const [fieldMap, setFieldMap] = useState<{
     email?: string;
@@ -79,7 +89,7 @@ export const CSVDialog = ({ dialogLabel, icon }: CSVDialogProps) => {
       skipEmptyLines: true,
       complete: function (results) {
         const headers = results.meta.fields as string[];
-        setParsedData(results.data);
+        setParsedData(results.data as Lead[]);
         setCsvHeaders(headers);
 
         const map: Record<string, string | undefined> = {
@@ -120,9 +130,9 @@ export const CSVDialog = ({ dialogLabel, icon }: CSVDialogProps) => {
       return;
     }
     const seenEmails = new Set<string>();
-    const valids: any[] = [];
-    const duplicates: any[] = [];
-    const invalids: any[] = [];
+    const valids: Lead[] = [];
+    const duplicates: Lead[] = [];
+    const invalids: Lead[] = [];
 
     parsedData.forEach((row) => {
       const email = row[emailField]?.toString().trim().toLowerCase();
@@ -172,9 +182,9 @@ export const CSVDialog = ({ dialogLabel, icon }: CSVDialogProps) => {
     <Dialog>
       <DialogTrigger asChild>
         <Button variant="outline" className="btn-hollow">
-                    {icon}
-                    {dialogLabel}
-                  </Button>
+          {icon}
+          {dialogLabel}
+        </Button>
       </DialogTrigger>
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
@@ -244,10 +254,7 @@ export const CSVDialog = ({ dialogLabel, icon }: CSVDialogProps) => {
                       onChange={handleFileSelect}
                       className="absolute inset-0 opacity-0 cursor-pointer z-10 w-full h-full"
                     />
-                    <Button
-                      asChild
-                      className="btn-1 !p-2 !text-sm"
-                    >
+                    <Button asChild className="btn-1 !p-2 !text-sm">
                       <label
                         htmlFor="csv-upload"
                         className="cursor-pointer w-full h-full flex items-center justify-center"

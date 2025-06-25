@@ -1,7 +1,6 @@
 'use client';
 
 import { Card, CardContent } from '@/components/ui/card';
-import { Zap, Target, Shield } from 'lucide-react';
 import { features } from "./data";
 
 
