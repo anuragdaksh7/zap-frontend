@@ -13,7 +13,6 @@ import {
   PauseCircle,
   CheckCircle,
 } from "lucide-react";
-import { ReactNode } from "react";
 
 export const statusStyles: Record<
   CampaignStatus,

@@ -34,9 +34,6 @@ interface CSVDialogProps {
   icon?:React.ReactNode;
 }
 
-const acceptableCSVFileTypes =
-  "application/vnd.openxmlformats-officedocument.spreadsheet.sheet, application/vnd.ms-excel, .csv";
-
 export const CSVDialog = ({ dialogLabel, icon }: CSVDialogProps) => {
   const [step, setStep] = useState(1);
   const [parsedData, setParsedData] = useState<any[]>([]);

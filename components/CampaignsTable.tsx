@@ -309,9 +309,9 @@ function downloadCSV(data: any[], filename = "prospects.csv") {
   URL.revokeObjectURL(url);
 }
 
-function pluralizeHour(n: number) {
-  return n === 1 ? "hour" : "hours";
-}
+// function pluralizeHour(n: number) {
+//   return n === 1 ? "hour" : "hours";
+// }
 
 export function CampaignsTable() {
   const router = useRouter();

@@ -8,7 +8,7 @@ export default function Home() {
     <div className="w-[85%] h-screen">
       <header className="heading">
         <h1 className="text-2xl font-bold">Welcome, {"John Doe"}!</h1>
-        <p className="text-sm font-medium">Here's your email overview.</p>
+        <p className="text-sm font-medium">Here&apos;s your email overview.</p>
       </header>
       <div className="w-full flex">
         <div className="w-[70%] max-h-[80vh] bg-white border-2 rounded-xl p-4 mx-6 overflow-y-auto">
