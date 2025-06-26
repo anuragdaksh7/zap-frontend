@@ -52,7 +52,7 @@ export function EmailSidePanel({ trigger, rowData }: EmailSidePanelProps) {
   return (
     <Sheet>
       <SheetTrigger asChild>{trigger}</SheetTrigger>
-      <SheetContent className="w-[37rem] sm:max-w-none p-0 flex flex-col h-full gap-0">
+      <SheetContent className="w-[50%] sm:max-w-none p-0 flex flex-col h-full gap-0">
         {/* Header of email box */}
         <SheetHeader>
           <SheetTitle className="flex flex-col justify-evenly bg-muted top-0">

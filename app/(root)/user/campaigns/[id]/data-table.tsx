@@ -29,14 +29,14 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-} from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import {
   Search,
   Filter,
+  Trash2,
+  RefreshCw,
+  FileBarChart2,
 } from "lucide-react";
 import * as React from "react";
 
@@ -82,9 +82,9 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <div>
+    <div className="w-full h-[85vh] flex flex-col gap-4">
       {/* Column filter */}
-      <Card className="mb-6">
+      <Card>
         <CardContent className="p-4">
           {/* Search bar */}
           <div className="flex items-center space-x-4">
@@ -103,10 +103,43 @@ export function DataTable<TData, TValue>({
                 />
               </div>
             </div>
+
+            {/* Buttons */}
+            <div className="flex items-center gap-2">
+              <Button
+                variant="outline"
+                size="icon"
+                title="Re-Run selected Templates"
+                className="bg-blue-100 border-blue-200 hover:bg-blue-200 hover:border-blue-300"
+              >
+                <RefreshCw className="w-5 h-5 text-blue-600" />
+              </Button>
+              <Button
+                variant="outline"
+                size="icon"
+                title="Generate Report"
+                className="bg-green-100 border-green-200 hover:bg-green-200 hover:border-green-300"
+              >
+                <FileBarChart2 className="w-5 h-5 text-green-600" />
+              </Button>
+              <Button
+                variant="outline"
+                size="icon"
+                title="Delete Selected Templates"
+                className="bg-red-100 border-red-200 hover:bg-red-200 hover:border-red-300"
+              >
+                <Trash2 className="w-5 h-5 text-red-600" />
+              </Button>
+            </div>
+
             {/* Filter btn */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="sm" className="hover:border-muted hover:bg-muted">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="hover:border-muted hover:bg-muted"
+                >
                   <Filter className="w-4 h-4 mr-2" />
                   Filter
                 </Button>
@@ -136,8 +169,8 @@ export function DataTable<TData, TValue>({
       </Card>
 
       {/* Table */}
-      <div className="rounded-md border overflow-auto">
-        <Table className="min-w-[1200px]">
+      <div className="rounded-md border overflow-auto h-full">
+        <Table className="min-w-[50rem]">
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>

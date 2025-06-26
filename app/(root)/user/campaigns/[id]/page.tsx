@@ -1,15 +1,7 @@
 'use client';
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+
 import {
   Upload,
-  Users,
-  UserX,
-  AlertTriangle,
   Boxes,
 } from "lucide-react";
 
@@ -113,6 +105,66 @@ async function getData(): Promise<Lead[]> {
       notes: "Requested a custom integration",
       linkedinURL: "https://linkedin.com/in/vikramrao",
     },
+    {
+      id: "7",
+      fullName: "Vikram Rao",
+      email: "vikram.rao@agriinnovate.com",
+      phone: "+91-9900112233",
+      company: "AgriInnovate",
+      position: "CTO",
+      status: "active",
+      tags: ["founder", "vip"],
+      location: "Hyderabad, India",
+      lastContact: "2024-05-07",
+      responseAt: "2024-05-08T08:30:00Z",
+      notes: "Requested a custom integration",
+      linkedinURL: "https://linkedin.com/in/vikramrao",
+    },
+    {
+      id: "8",
+      fullName: "Vikram Rao",
+      email: "vikram.rao@agriinnovate.com",
+      phone: "+91-9900112233",
+      company: "AgriInnovate",
+      position: "CTO",
+      status: "active",
+      tags: ["founder", "vip"],
+      location: "Hyderabad, India",
+      lastContact: "2024-05-07",
+      responseAt: "2024-05-08T08:30:00Z",
+      notes: "Requested a custom integration",
+      linkedinURL: "https://linkedin.com/in/vikramrao",
+    },
+    {
+      id: "9",
+      fullName: "Vikram Rao",
+      email: "vikram.rao@agriinnovate.com",
+      phone: "+91-9900112233",
+      company: "AgriInnovate",
+      position: "CTO",
+      status: "active",
+      tags: ["founder", "vip"],
+      location: "Hyderabad, India",
+      lastContact: "2024-05-07",
+      responseAt: "2024-05-08T08:30:00Z",
+      notes: "Requested a custom integration",
+      linkedinURL: "https://linkedin.com/in/vikramrao",
+    },
+    {
+      id: "10",
+      fullName: "Vikram Rao",
+      email: "vikram.rao@agriinnovate.com",
+      phone: "+91-9900112233",
+      company: "AgriInnovate",
+      position: "CTO",
+      status: "active",
+      tags: ["founder", "vip"],
+      location: "Hyderabad, India",
+      lastContact: "2024-05-07",
+      responseAt: "2024-05-08T08:30:00Z",
+      notes: "Requested a custom integration",
+      linkedinURL: "https://linkedin.com/in/vikramrao",
+    },
   ];
 }
 
@@ -127,18 +179,10 @@ const CampaignPage = () => {
     fetchData();
   }, []);
 
-  const stats = {
-    total: data.length,
-    active: data.filter((lead) => lead.status === "active").length,
-    unsubscribed: data.filter((lead) => lead.status === "unsubscribed").length,
-    blacklisted: data.filter((lead) => lead.status === "blacklisted").length,
-  };
-
   return (
-    <div className="min-h-screen w-full bg-anti-flash-white overflow-x-hidden">
+    <div className="w-[85%] h-screen bg-anti-flash-white overflow-x-hidden">
       <main className="flex-1 w-full ">
-       <header className="w-full bg-white text-foreground border-b-[1px] px-6 pt-1 mb-8 h-[10vh] flex-between">
-
+       <header className="w-full bg-white text-foreground border-b-[1px] px-6 pt-1 h-[10vh] flex-between">
             <div className="flex flex-col">
                 <h1 className="text-2xl font-bold text-charcoal">Leads</h1>
                 <p className="text-medium-gray">
@@ -151,9 +195,9 @@ const CampaignPage = () => {
             </div>
         </header>
 
-        <div className="p-6 w-full">
+        <div className="w-full h-[90vh] flex-center p-6">
           {/* Stats Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+          {/* <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
@@ -207,12 +251,10 @@ const CampaignPage = () => {
                 </div>
               </CardContent>
             </Card>
-          </div>
-
-          {/* Filters and Search */}
+          </div> */}
 
           {/* Leads Table */}
-          <div className="w-full px-0 py-2">
+          <div className="w-full px-0 py-2 h-full">
             <DataTable columns={columns} data={data} />
           </div>
         </div>

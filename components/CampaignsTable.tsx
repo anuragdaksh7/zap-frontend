@@ -328,12 +328,15 @@ function downloadCSV(data: Prospect[], filename = "prospects.csv") {
 export function CampaignsTable() {
   const router = useRouter();
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [dropdownDirection, setDropdownDirection] = useState<"up" | "down">(
+    "down"
+  );
 
   return (
     <Table className="overflow-auto">
       <TableCaption>A list of your recent campaigns.</TableCaption>
       <TableHeader>
-        <TableRow>
+        <TableRow className="hover:bg-transparent">
           <TableHead className="w-[220px]">Name</TableHead>
           <TableHead>Date</TableHead>
           <TableHead>Prospects</TableHead>
@@ -359,30 +362,49 @@ export function CampaignsTable() {
             aria-label={`View campaign ${campaign.name}`}
           >
             <TableCell className="font-medium">{campaign.name}</TableCell>
-            <TableCell>{format(new Date(campaign.date), "PPP")}</TableCell>
+            <TableCell>{format(new Date(campaign.date), "dd MMM yyyy")}</TableCell>
             <TableCell className="tabular-nums">
               {campaign.processedProspects} of {campaign.totalProspects}
             </TableCell>
             <TableCell>
-              <div className="relative w-full flex items-center gap-2">
-                <button
-                  className="py-1 rounded font-semibold transition"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setOpenDropdown(
-                      openDropdown === campaign._id ? null : campaign._id
-                    );
-                  }}
-                >
+              <div
+                className="relative w-full flex items-center gap-2"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  const rect = (
+                    e.currentTarget as HTMLElement
+                  ).getBoundingClientRect();
+                  const spaceBelow = window.innerHeight - rect.bottom;
+                  const spaceAbove = rect.top;
+                  if (spaceBelow < 150 && spaceAbove > spaceBelow) {
+                    setDropdownDirection("up");
+                  } else {
+                    setDropdownDirection("down");
+                  }
+                  setOpenDropdown(
+                    openDropdown === campaign._id ? null : campaign._id
+                  );
+                }}
+              >
+                <button className="py-1 rounded font-medium transition">
                   {campaign.runEvery === 60
                     ? "1 hour"
                     : runEveryOptions.find(
                         (opt) => opt.value === campaign.runEvery
                       )?.label || `${campaign.runEvery} hours`}
                 </button>
-                <ChevronsUpDown/>
+                <ChevronsUpDown className="text-gray-700" />
                 {openDropdown === campaign._id && (
-                  <div className="absolute z-10 left-0 mt-1 w-32 bg-white border rounded shadow">
+                  <div
+                    className={`absolute z-10 left-24 mt-1 w-32 bg-white border rounded shadow
+      ${dropdownDirection === "up" ? "bottom-full mb-2" : "-top-20"}
+    `}
+                    style={
+                      dropdownDirection === "up"
+                        ? { bottom: "100%" }
+                        : { top: "100%" }
+                    }
+                  >
                     {runEveryOptions.map((opt) => (
                       <button
                         key={opt.value}

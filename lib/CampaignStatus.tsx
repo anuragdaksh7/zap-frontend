@@ -7,11 +7,11 @@ export enum CampaignStatus {
 }
 
 import {
-  Loader2,
   AlertTriangle,
   Ban,
   PauseCircle,
   CheckCircle,
+  RefreshCcw,
 } from "lucide-react";
 
 export const statusStyles: Record<
@@ -21,7 +21,7 @@ export const statusStyles: Record<
   [CampaignStatus.Running]: {
     label: "Running",
     className: "status-running",
-    icon: <Loader2 className="w-4 h-4 mr-1" />,
+    icon: <RefreshCcw className="w-4 h-4 mr-1" />,
   },
   [CampaignStatus.Error]: {
     label: "Error",

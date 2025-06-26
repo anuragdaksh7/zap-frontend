@@ -29,6 +29,7 @@
     --secondary-foreground: 0 0% 9%;
 
     --muted: 215 28% 85%; /* Light muted bg */
+    --muted-light: 215 38% 105%; /* Light muted bg */
     --muted-foreground: 215 28% 40%;
 
     --accent: 144 39% 65%; /* #A9D8B8 */
@@ -178,7 +179,7 @@
 
   /* heading */
   .heading {
-    @apply w-full bg-white text-foreground border-b-[1px] px-6 pt-1 mb-8 flex flex-col h-[10vh];
+    @apply w-full bg-white text-foreground border-b-[1px] px-6 flex flex-col h-[10vh] justify-center;
   }
 }
 
@@ -207,4 +208,24 @@
   .status-completed {
     @apply bg-green-100 text-green-700;
   }
+}
+
+/* Transparent scrollbar track for all scrollable elements */
+::-webkit-scrollbar {
+  width: 8px;
+  background: transparent; /* Optional: makes the scrollbar area transparent */
+}
+
+::-webkit-scrollbar-track {
+  background: transparent; /* Makes the track transparent */
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground)) ; /* Style the thumb as you like */
+  border-radius: 4px;
+}
+
+/* For Firefox */
+* {
+  scrollbar-color: hsl(var(--muted-foreground) / 0.3) transparent;
 }
