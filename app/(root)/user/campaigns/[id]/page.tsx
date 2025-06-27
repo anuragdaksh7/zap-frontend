@@ -9,7 +9,7 @@ import { columns, Lead } from "./columns";
 import { DataTable } from "./data-table";
 import { useState, useEffect } from "react";
 import { CSVDialog } from "@/components/CSVDialog";
-import { TemplatesDialog } from "@/components/Templates";
+import { TemplatesDialog } from "@/components/Templates/TemplatesDialogBox";
 
 // This is temporary mock data
 async function getData(): Promise<Lead[]> {

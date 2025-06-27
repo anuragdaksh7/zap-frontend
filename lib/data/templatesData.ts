@@ -5,7 +5,7 @@ export interface Template {
   body: string;
   campaignsUsed: number;
   createdDate: string;
-}
+}  
 
 // Shared mock template data
 export const mockTemplateData: Record<string, Template> = {

@@ -11,9 +11,9 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { CheckCircle2, Trash2 } from "lucide-react";
+import { CheckCircle, Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
-import { CreateTemplateDialog } from "./CreateTemplate";
+import { CreateTemplateDialog } from "../CreateTemplate";
 
 interface Template {
   id: number;
@@ -75,13 +75,16 @@ export function TemplatesDialog({
     const storedTemplates = localStorage.getItem("created-templates");
     const storedSelected = localStorage.getItem("selected-templates");
 
-    if(storedTemplates) setTemplates(JSON.parse(storedTemplates));
-    if(storedSelected) setSelectedTemplateIds(JSON.parse(storedSelected));
+    if (storedTemplates) setTemplates(JSON.parse(storedTemplates));
+    if (storedSelected) setSelectedTemplateIds(JSON.parse(storedSelected));
   }, []);
 
   useEffect(() => {
     localStorage.setItem("created-templates", JSON.stringify(templates));
-    localStorage.setItem("selected-templates", JSON.stringify(selectedTemplateIds));
+    localStorage.setItem(
+      "selected-templates",
+      JSON.stringify(selectedTemplateIds)
+    );
   }, [templates, selectedTemplateIds]);
 
   return (
@@ -105,7 +108,7 @@ export function TemplatesDialog({
           </DialogDescription>
         </DialogHeader>
 
-        <div className="grid gap-4 max-h-[60vh] overflow-y-auto px-1">
+        <div className="grid gap-4 max-h-[60vh] overflow-y-auto p-3">
           {templates.map((template) => {
             const isSelected = selectedTemplateIds.includes(template.id);
             return (
@@ -123,7 +126,7 @@ export function TemplatesDialog({
                 )}
                 {/* Tick Icon for selected */}
                 {isSelected && (
-                  <CheckCircle2 className="absolute top-2 left-2 text-cta w-5 h-5" />
+                  <CheckCircle className="absolute -top-2 -left-2.5 text-cta w-5 h-5" />
                 )}
 
                 {/* Delete button for user-created */}
@@ -148,7 +151,7 @@ export function TemplatesDialog({
 
         <DialogFooter className="mt-4">
           <div className="flex justify-between w-full">
-              <CreateTemplateDialog/>
+            <CreateTemplateDialog />
             <div className="flex gap-2">
               <DialogClose asChild>
                 <Button variant="outline">Cancel</Button>
