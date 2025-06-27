@@ -1,6 +1,6 @@
 "use client";
 import {
-  BookmarkIcon,
+  Copy,
   GroupIcon,
   LayoutDashboard,
   LogOut,
@@ -37,7 +37,7 @@ const Sidebar = () => {
     };
   }, [showPopup]);
   return (
-    <div className="h-full w-[15%] border-x-[0.5px] border-border flex-divide relative bg-white">
+    <div className="h-full w-[15rem] border-x-[0.5px] border-border flex-divide relative bg-white">
       <header className="flex-start h-[10vh] w-full border-y-[0.5px] border-border gap-2">
         <Link href={"/"} className="flex-start gap-2">
           <div className="bg-cta text-white w-[25px] h-[25px] flex-center ml-3 rounded-sm">
@@ -46,7 +46,7 @@ const Sidebar = () => {
           <h1 className="font-bold text-xl text-foreground">ZapMail</h1>
         </Link>
       </header>
-      <section className="flex flex-col justify-start items-start h-[70vh] mt-3 px-5 w-full gap-2 border-b-[0.5px] border-border">
+      <section className="flex flex-1 flex-col justify-start items-start h-[70vh] mt-3 px-5 w-full gap-2">
         <Link
           className={
             pathname === "/user/dashboard" ? "sidebar-active" : "sidebar-link"
@@ -57,11 +57,11 @@ const Sidebar = () => {
         </Link>
         <Link
           className={
-            pathname === "/user/bookmarks" ? "sidebar-active" : "sidebar-link"
+            pathname === "/user/templates" ? "sidebar-active" : "sidebar-link"
           }
-          href={"/user/bookmarks"}
+          href={"/user/templates"}
         >
-          <BookmarkIcon size={20} /> Bookmarks
+          <Copy size={20} /> Templates
         </Link>
         <Link
           className={
@@ -88,7 +88,7 @@ const Sidebar = () => {
           <Tag size={20} /> Tags
         </Link>
       </section>
-      <footer className="h-[20vh] flex-center w-full relative" ref={footerRef}>
+      <footer className=" flex-center w-full relative p-2" ref={footerRef}>
         {showPopup && (
           <div
             className={`absolute bottom-[80%] left-1/2 -translate-x-1/2 bg-white border border-border rounded-md shadow-lg z-50 w-[12rem] flex flex-col transition-all duration-200 ${
