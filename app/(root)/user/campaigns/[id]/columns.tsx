@@ -2,9 +2,8 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
-import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import { MoreHorizontal } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Linkedin } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { EmailSidePanel } from "@/components/EmailSidepanel/EmailSidePanel"
 import { Input } from "@/components/ui/input";
@@ -50,6 +49,7 @@ export type Lead = {
 
 export function useLeadColumns(updateField: (id: string, field: string, value: string) => void) {
   const [editingCell, setEditingCell] = useState<{ rowId: string; columnId: string; value: string } | null>(null);
+  
 
   const startEditing = (rowId: string, columnId: string, initialValue: string) => {
     setEditingCell({ rowId, columnId, value: initialValue });
@@ -170,31 +170,25 @@ export function useLeadColumns(updateField: (id: string, field: string, value: s
     {
       accessorKey: "tags",
       header: "Tags",
-      ...editableCell("tags"),
       cell: ({ row }) => {
-        const isEditing = editingCell?.rowId === row.id && editingCell.columnId === "tags";
-        const initialValue = (row.getValue("tags") as string[])?.join(", ") || "";
-        const [value, setValue] = useState(initialValue);
-
-        const save = () => {
-          updateField(row.original.id, "tags", value);
-          setEditingCell(null);
-        };
+        const isEditing = editingCell !== null && editingCell.rowId === row.id && editingCell.columnId === "tags";
+        const tagsArray = row.getValue("tags") as string[];
+        const initialValue = tagsArray?.join(", ") || "";
 
         return isEditing ? (
           <Input
             autoFocus
-            value={value}
-            onChange={(e) => setValue(e.target.value)}
-            onBlur={save}
-            onKeyDown={(e) => e.key === "Enter" && save()}
+            value={editingCell?.value ?? ""}
+            onChange={handleChange}
+            onBlur={() => save(row.id, "tags")}
+            onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => e.key === "Enter" && save(row.id, "tags")}
           />
         ) : (
           <span
             className="cursor-pointer hover:underline"
-            onClick={() => setEditingCell({ rowId: row.id, columnId: "tags", value })}
+            onClick={() => startEditing(row.id, "tags", initialValue || "")}
           >
-            {value}
+            {initialValue || "—"}
           </span>
         );
       },

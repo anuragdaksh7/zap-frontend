@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search, Plus, Mail, CopyPlus } from "lucide-react";
 import { templateList } from "@/lib/data/templatesData";
-import { TemplatesDialog } from "@/components/Templates/TemplatesDialogBox";
 import { TemplateCard } from "@/components/Templates/TemplatesCard";
 import { CreateTemplateDialog } from "@/components/CreateTemplate";
 
