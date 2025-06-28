@@ -6,6 +6,8 @@ import { Textarea } from "@/components/ui/textarea";
 interface TemplateDetailsProps {
   templateName: string;
   setTemplateName: (value: string) => void;
+  sender: string;
+  setSender: (value: string) => void;
   subject: string;
   setSubject: (value: string) => void;
   body: string;
@@ -15,6 +17,8 @@ interface TemplateDetailsProps {
 export function TemplateDetails({
   templateName,
   setTemplateName,
+  sender,
+  setSender,
   subject,
   setSubject,
   body,
@@ -38,6 +42,19 @@ export function TemplateDetails({
             value={templateName}
             onChange={(e) => setTemplateName(e.target.value)}
             placeholder="Enter template name"
+            className="border-gray-300 focus:border-cta focus:ring-cta"
+          />
+        </div>
+{/* Sender Name */}
+        <div className="space-y-2">
+          <Label htmlFor="Sender Name" className="text-charcoal font-medium">
+            Sender Name
+          </Label>
+          <Input
+            id="sender"
+            value={sender}
+            onChange={(e) => setSender(e.target.value)}
+            placeholder="Enter sender name"
             className="border-gray-300 focus:border-cta focus:ring-cta"
           />
         </div>

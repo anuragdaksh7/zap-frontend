@@ -5,7 +5,7 @@ import {
   Boxes,
 } from "lucide-react";
 
-import { columns, Lead } from "./columns";
+import { useLeadColumns, Lead } from "./columns";
 import { DataTable } from "./data-table";
 import { useState, useEffect } from "react";
 import { CSVDialog } from "@/components/CSVDialog";
@@ -170,6 +170,19 @@ async function getData(): Promise<Lead[]> {
 
 const CampaignPage = () => {
   const [data, setData] = useState<Lead[]>([]);
+  const updateField = async (id: string, field: string, value: string) => {
+  try {
+    await fetch("/api/update-lead", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id, field, value }),
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+  const columns = useLeadColumns(updateField);
 
   useEffect(() => {
     const fetchData = async () => {

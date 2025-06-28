@@ -28,6 +28,7 @@ import { Upload, AlertCircle, Eye } from "lucide-react";
 import { useState, useRef } from "react";
 import React from "react";
 import Papa from "papaparse";
+import { Input } from "./ui/input";
 
 interface CSVDialogProps {
   dialogLabel?: string;
@@ -49,6 +50,7 @@ type Lead = {
 
 export const CSVDialog = ({ dialogLabel, icon }: CSVDialogProps) => {
   const [step, setStep] = useState(1);
+  const [campaignName, setCampaignName] = useState("");
   const [parsedData, setParsedData] = useState<Lead[]>([]);
   const [csvHeaders, setCsvHeaders] = useState<string[]>([]);
   const [uploadedFileName, setUploadedFileName] = useState<string | null>(null);
@@ -188,13 +190,13 @@ export const CSVDialog = ({ dialogLabel, icon }: CSVDialogProps) => {
       </DialogTrigger>
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>Upload CSV - Step {step} of 3</DialogTitle>
+          <DialogTitle>Upload CSV - Step {step} of 4</DialogTitle>
         </DialogHeader>
 
         {/* Stepper Indicator */}
         <div className="flex items-center justify-center mb-6">
           <div className="flex items-center space-x-4">
-            {[1, 2, 3].map((s) => (
+            {[1, 2, 3, 4].map((s) => (
               <React.Fragment key={s}>
                 <div
                   className={`w-8 h-8 rounded-full flex items-center justify-center ${
@@ -205,7 +207,7 @@ export const CSVDialog = ({ dialogLabel, icon }: CSVDialogProps) => {
                 >
                   {s}
                 </div>
-                {s !== 3 && (
+                {s !== 4 && (
                   <div
                     className={`h-1 w-16 ${step > s ? "bg-cta" : "bg-muted"}`}
                   />
@@ -215,8 +217,41 @@ export const CSVDialog = ({ dialogLabel, icon }: CSVDialogProps) => {
           </div>
         </div>
 
-        {/* Step 1 – File Upload UI */}
+        {/* Step 1- Campaign Name */}
         {step === 1 && (
+          <div>
+            <div className="text-center mb-6">
+              <h3 className="text-lg font-semibold mb-2">Campaign Name</h3>
+            </div>
+
+            <div>
+              <Input
+                type="name"
+                placeholder="Enter campaign name here"
+                value={campaignName}
+                onChange={(e) => setCampaignName(e.target.value)}
+              />
+            </div>
+
+            <div className="mt-6 flex justify-end">
+              <Button
+                onClick={() => {
+                  if (!campaignName.trim()) {
+                    alert("Enter a campaign name first");
+                  } else {
+                    setStep(2);
+                  }
+                }}
+                className="bg-cta hover:bg-cta-hover text-white"
+              >
+                Next
+              </Button>
+            </div>
+          </div>
+        )}
+
+        {/* Step 2 – File Upload UI */}
+        {step === 2 && (
           <div className="space-y-6">
             <div className="text-center">
               <h3 className="text-lg font-semibold mb-2">Upload CSV File</h3>
@@ -301,12 +336,15 @@ export const CSVDialog = ({ dialogLabel, icon }: CSVDialogProps) => {
               </div>
             </div>
 
-            <div className="flex justify-end">
+            <div className="mt-6 flex justify-between">
+              <Button variant="outline" onClick={() => setStep(1)}>
+                Back
+              </Button>
               <Button
                 className="bg-cta hover:bg-cta-hover text-white"
                 onClick={() => {
                   if (parsedData.length > 0) {
-                    setStep(2);
+                    setStep(3);
                   } else {
                     alert("Please upload a valid CSV file first.");
                   }
@@ -318,8 +356,8 @@ export const CSVDialog = ({ dialogLabel, icon }: CSVDialogProps) => {
           </div>
         )}
 
-        {/* Step 2 – Mapping UI */}
-        {step === 2 && (
+        {/* Step 3 – Mapping UI */}
+        {step === 3 && (
           <div>
             <div className="text-center mb-6">
               <h3 className="text-lg font-semibold mb-2">Map CSV Columns</h3>
@@ -366,14 +404,14 @@ export const CSVDialog = ({ dialogLabel, icon }: CSVDialogProps) => {
             </div>
 
             <div className="mt-6 flex justify-between">
-              <Button variant="outline" onClick={() => setStep(1)}>
+              <Button variant="outline" onClick={() => setStep(2)}>
                 Back
               </Button>
               <Button
                 onClick={() => {
                   const success = processParsedData();
                   if (success) {
-                    setStep(3);
+                    setStep(4);
                   }
                 }}
                 className="bg-cta hover:bg-cta-hover text-white"
@@ -384,8 +422,8 @@ export const CSVDialog = ({ dialogLabel, icon }: CSVDialogProps) => {
           </div>
         )}
 
-        {/* Step 3 – Result UI */}
-        {step === 3 && (
+        {/* Step 4 – Result UI */}
+        {step === 4 && (
           <div className="flex flex-col overflow-hidden">
             <div className="text-center mb-6">
               <div className="flex justify-center items-center mb-2">
@@ -423,7 +461,10 @@ export const CSVDialog = ({ dialogLabel, icon }: CSVDialogProps) => {
 
             <div className="space-y-4 flex-grow">
               <div className="flex items-center justify-between">
-                <h4 className="font-semibold">Uploaded Leads</h4>
+                <h4>
+                  Uploaded Leads for{" "}
+                  <span className="font-semibold">{campaignName} </span>Campaign
+                </h4>
               </div>
 
               {/* Scrollable Table */}

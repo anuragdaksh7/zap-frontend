@@ -23,7 +23,7 @@ export const CreateTemplateDialog = ({
   icon,
 }: {
   dialogLabel?: string;
-  icon?: React.ReactNode;
+  icon?: React.ReactNode; 
 }) => {
   const [formData, setFormData] = useState({
     senderName: "",

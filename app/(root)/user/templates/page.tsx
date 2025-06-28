@@ -7,6 +7,7 @@ import { Search, Plus, Mail, CopyPlus } from "lucide-react";
 import { templateList } from "@/lib/data/templatesData";
 import { TemplatesDialog } from "@/components/Templates/TemplatesDialogBox";
 import { TemplateCard } from "@/components/Templates/TemplatesCard";
+import { CreateTemplateDialog } from "@/components/CreateTemplate";
 
 export default function TemplatesPage() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -67,10 +68,7 @@ export default function TemplatesPage() {
                   className="pl-10 border-gray-300 focus:border-cta focus:ring-cta"
                 />
               </div>
-              <TemplatesDialog
-                buttonLabel="Create New template"
-                icon={<CopyPlus className="w-4 h-4 mr-2" />}
-              />
+              <CreateTemplateDialog dialogLabel="Create New template" icon={<CopyPlus className="w-4 h-4 mr-2"/>}/>
             </div>
 
             {/* Templates Grid */}

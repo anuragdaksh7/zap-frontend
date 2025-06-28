@@ -2,16 +2,18 @@ export interface Template {
   id: string;
   name: string;
   subject: string;
+  sender: string;
   body: string;
   campaignsUsed: number;
   createdDate: string;
-}  
+}
 
 // Shared mock template data
 export const mockTemplateData: Record<string, Template> = {
- "1": {
+  "1": {
     id: "1",
     name: "Welcome Email",
+    sender: "John Doe",
     subject: "Welcome to our platform!",
     body: `Dear {{name}},
 
@@ -32,6 +34,7 @@ The Team`,
   "2": {
     id: "2",
     name: "Product Launch",
+    sender: "John Doe",
     subject: "Exciting new product launch!",
     body: `Hi {{name}},
 
@@ -50,10 +53,11 @@ Product Team`,
     createdDate: "2024-02-20"
   },
   "3": {
-  id: "3",
-  name: "Abandoned Cart Reminder",
-  subject: "You left something in your cart 🛒",
-  body: `Hello {{name}},
+    id: "3",
+    name: "Abandoned Cart Reminder",
+    sender: "John Doe",
+    subject: "You left something in your cart 🛒",
+    body: `Hello {{name}},
 
 We noticed you left a few items in your cart.
 
@@ -65,14 +69,15 @@ Your cart is waiting for you!
 
 Cheers,
 The Sales Team`,
-  campaignsUsed: 7,
-  createdDate: "2024-03-12"
-},
-"4": {
-  id: "4",
-  name: "Event Invitation",
-  subject: "You're Invited: Annual Customer Appreciation Event",
-  body: `Hi {{name}},
+    campaignsUsed: 7,
+    createdDate: "2024-03-12"
+  },
+  "4": {
+    id: "4",
+    name: "Event Invitation",
+    sender: "John Doe",
+    subject: "You're Invited: Annual Customer Appreciation Event",
+    body: `Hi {{name}},
 
 We are thrilled to invite you to our Annual Customer Appreciation Event!
 
@@ -88,14 +93,15 @@ Reserve your spot today!
 
 Warm regards,
 Event Coordinator`,
-  campaignsUsed: 4,
-  createdDate: "2024-04-05"
-},
-"5": {
-  id: "5",
-  name: "Feedback Request",
-  subject: "Share your thoughts with us,Share your thoughts with us,Share your thoughts with us, Share your thoughts with us, Share your thoughts with us, Share your thoughts with us,Share your thoughts with us",
-  body: `Dear {{name}},
+    campaignsUsed: 4,
+    createdDate: "2024-04-05"
+  },
+  "5": {
+    id: "5",
+    name: "Feedback Request",
+    sender: "John Doe",
+    subject: "Share your thoughts with us,Share your thoughts with us,Share your thoughts with us, Share your thoughts with us, Share your thoughts with us, Share your thoughts with us,Share your thoughts with us",
+    body: `Dear {{name}},
 
 Your opinion matters!
 
@@ -110,14 +116,15 @@ Thank you for helping us improve!
 
 Best,
 Customer Success Team`,
-  campaignsUsed: 6,
-  createdDate: "2024-02-28"
-},
-"6": {
-  id: "6",
-  name: "Subscription Renewal Reminder",
-  subject: "Your subscription is about to expire",
-  body: `Hello {{name}},
+    campaignsUsed: 6,
+    createdDate: "2024-02-28"
+  },
+  "6": {
+    id: "6",
+    name: "Subscription Renewal Reminder",
+    sender: "John Doe",
+    subject: "Your subscription is about to expire",
+    body: `Hello {{name}},
 
 We hope you've enjoyed using our services.
 
@@ -134,14 +141,15 @@ Thank you for choosing us!
 
 Sincerely,
 The Subscription Team`,
-  campaignsUsed: 12,
-  createdDate: "2024-03-20"
-},
-"7": {
-  id: "7",
-  name: "Follow-Up Email",
-  subject: "Just checking in 😊",
-  body: `Hi {{name}},
+    campaignsUsed: 12,
+    createdDate: "2024-03-20"
+  },
+  "7": {
+    id: "7",
+    name: "Follow-Up Email",
+    sender: "John Doe",
+    subject: "Just checking in 😊",
+    body: `Hi {{name}},
 
 I wanted to follow up on my previous email to see if you had any questions.
 
@@ -150,9 +158,9 @@ If there's anything I can assist you with, please let me know!
 Here to help,
 [Your Name]
 Customer Success Team`,
-  campaignsUsed: 5,
-  createdDate: "2024-04-10"
-}
+    campaignsUsed: 5,
+    createdDate: "2024-04-10"
+  }
 };
 
 export const templateList = Object.values(mockTemplateData);

@@ -11,6 +11,7 @@ import { TemplateDetails } from "@/components/Templates/TemplateDetails";
 interface Template {
   id: string;
   name: string;
+  sender: string;
   subject: string;
   body: string;
   campaignsUsed: number;
@@ -25,6 +26,7 @@ export default function EditTemplatePage() {
   const id = params?.id as string | undefined;
 
   const [templateName, setTemplateName] = useState("");
+  const [sender, setSender] = useState("");
   const [subject, setSubject] = useState("");
   const [body, setBody] = useState("");
   const [originalTemplate, setOriginalTemplate] = useState<Template | null>(
@@ -36,6 +38,7 @@ export default function EditTemplatePage() {
       const template = mockTemplateData[id];
       setOriginalTemplate(template);
       setTemplateName(template.name);
+      setSender(template.sender);
       setSubject(template.subject);
       setBody(template.body);
     }
@@ -45,6 +48,7 @@ export default function EditTemplatePage() {
     console.log("Saving template:", {
       id,
       name: templateName,
+      sender,
       subject,
       body,
     });
@@ -150,6 +154,8 @@ export default function EditTemplatePage() {
             <TemplateDetails
               templateName={templateName}
               setTemplateName={setTemplateName}
+              sender={sender}
+              setSender={setSender}
               subject={subject}
               setSubject={setSubject}
               body={body}
