@@ -7,6 +7,9 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Linkedin } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { EmailSidePanel } from "@/components/EmailSidepanel/EmailSidePanel"
+import { Input } from "@/components/ui/input";
+import { useState } from "react";
+import { CellContext } from "@tanstack/react-table";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -45,199 +48,199 @@ export type Lead = {
   linkedinURL: string;
 };
 
-export const columns: ColumnDef<Lead>[] = [
-  // Sorting
-  {
-    id: "select",
-    header: ({ table }) => (
-      <Checkbox
-        checked={
-          table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
-        }
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-      />
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
+export function useLeadColumns(updateField: (id: string, field: string, value: string) => void) {
+  const [editingCell, setEditingCell] = useState<{ rowId: string; columnId: string; value: string } | null>(null);
 
-  {
-    accessorKey: "fullName",
-    header: ({ column }) => (
-      <Button
-        variant="ghost"
-        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-      >
-        Full Name <ArrowUpDown className="ml-2 h-4 w-4" />
-      </Button>
-    ),
-    cell: ({ row }) => {
-    const name = row.getValue("fullName") as string;
-    const email = row.getValue("email") as string;
-    return (
-      <EmailSidePanel
-        trigger={
-          <span className="hover:underline cursor-pointer">
-            {name}
-          </span>
-        }
-        rowData={{
-          name,
-          email,
-          // profileUrl: "https://i.pravatar.cc/150?u=" + row.getValue("email"),
-        }
-        }
-      />
-    );
-  },
-  },
-  {
-    accessorKey: "email",
-    header: "Email",
-    cell: ({ row }) => {
-      const name = row.getValue("fullName") as string;
-      const email = row.getValue("email") as string;
-      return (
-        <EmailSidePanel
-          trigger={
-            <span className="cursor-pointer hover:underline">
-              {email}
-            </span>
-          }
-          rowData={{
-            name,
-            email,
-          }}
+  const startEditing = (rowId: string, columnId: string, initialValue: string) => {
+    setEditingCell({ rowId, columnId, value: initialValue });
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (editingCell) {
+      setEditingCell({ ...editingCell, value: e.target.value });
+    }
+  };
+
+  const save = (rowId: string, columnId: string) => {
+    if (editingCell) {
+      updateField(rowId, columnId, editingCell.value);
+      setEditingCell(null);
+    }
+  };
+
+  const editableCell = (field: keyof Lead) => ({
+    cell: ({ row }: CellContext<Lead, unknown>) => {
+      const isEditing = editingCell !== null && editingCell.rowId === row.id && editingCell.columnId === field;
+      const initialValue = row.getValue(field) as string;
+
+      return isEditing ? (
+        <Input
+          autoFocus
+          value={editingCell?.value ?? ""}
+          onChange={handleChange}
+          onBlur={() => save(row.id, field)}
+          onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => e.key === "Enter" && save(row.id, field)}
+        />
+      ) : (
+        <span
+          className="cursor-pointer hover:underline"
+          onClick={() => startEditing(row.id, field, initialValue || "")}
+        >
+          {initialValue || "—"}
+        </span>
+      );
+    },
+  });
+
+  const columns: ColumnDef<Lead>[] = [
+    {
+      id: "select",
+      header: ({ table }) => (
+        <Checkbox
+          checked={table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && "indeterminate")}
+          onCheckedChange={(v) => table.toggleAllPageRowsSelected(!!v)}
+          aria-label="Select all"
+        />
+      ),
+      cell: ({ row }) => (
+        <Checkbox
+          checked={row.getIsSelected()}
+          onCheckedChange={(v) => row.toggleSelected(!!v)}
+          aria-label="Select row"
+        />
+      ),
+      enableSorting: false,
+      enableHiding: false,
+    },
+    {
+      accessorKey: "fullName",
+      header: "Full Name",
+      cell: ({ row }) => {
+        const name = row.getValue("fullName") as string;
+        const email = row.getValue("email") as string;
+        return (
+          <EmailSidePanel
+            trigger={<span className="hover:underline cursor-pointer">{name}</span>}
+            rowData={{ name, email }}
           />
-      );
+        );
+      },
     },
-  },
-  {
-    accessorKey: "phone",
-    header: "Phone",
-  },
-  {
-    accessorKey: "company",
-    header: "Company",
-  },
-  {
-    accessorKey: "position",
-    header: "Position",
-  },
-  {
-    accessorKey: "status",
-    header: "Status",
-    cell: ({ row }) => {
-      const status: string = row.getValue("status");
-      return (
-        <Badge className={getStatusBadge(status)}>
-          {status.charAt(0).toUpperCase() + status.slice(1)}
-        </Badge>
-      );
+    {
+      accessorKey: "email",
+      header: "Email",
+      cell: ({ row }) => {
+        const name = row.getValue("fullName") as string;
+        const email = row.getValue("email") as string;
+        return (
+          <EmailSidePanel
+            trigger={<span className="hover:underline cursor-pointer">{email}</span>}
+            rowData={{ name, email }}
+          />
+        );
+      },
     },
-  },
+    {
+      accessorKey: "phone",
+      header: "Phone",
+      ...editableCell("phone"),
+    },
+    {
+      accessorKey: "company",
+      header: "Company",
+      ...editableCell("company"),
+    },
+    {
+      accessorKey: "position",
+      header: "Position",
+      ...editableCell("position"),
+    },
+    {
+      accessorKey: "status",
+      header: "Status",
+      cell: ({ row }) => {
+        const status = row.getValue("status") as string;
+        return (
+          <Badge className={getStatusBadge(status)}>
+            {status.charAt(0).toUpperCase() + status.slice(1)}
+          </Badge>
+        );
+      },
+    },
+    {
+      accessorKey: "tags",
+      header: "Tags",
+      ...editableCell("tags"),
+      cell: ({ row }) => {
+        const isEditing = editingCell?.rowId === row.id && editingCell.columnId === "tags";
+        const initialValue = (row.getValue("tags") as string[])?.join(", ") || "";
+        const [value, setValue] = useState(initialValue);
 
-  {
-    accessorKey: "tags",
-    header: "Tags",
-    cell: ({ row }) => row.getValue<string[]>("tags").join(", "),
-  },
-  {
-    accessorKey: "location",
-    header: "Location",
-  },
-  {
-    accessorKey: "lastContact",
-    header: "Last Contact",
-    cell: ({ row }) => {
-      const date = row.getValue("lastContact") as string | undefined;
-      return (
-        <div className="text-medium-gray">
-          {date
-            ? new Date(date).toLocaleDateString("en-GB", {
-                year: "numeric",
-                month: "numeric",
-                day: "numeric",
-                hour: "numeric",
-                minute: "numeric",
-                hour12: true,
-              })
-            : "N/A"}
-        </div>
-      );
-    },
-  },
-  {
-    accessorKey: "responseAt",
-    header: "Response At",
-    cell: ({ row }) => {
-      const date = row.getValue("responseAt") as string | undefined;
-      return (
-        <div className="text-medium-gray">
-          {date
-            ? new Date(date).toLocaleDateString("en-GB", {
-                year: "numeric",
-                month: "numeric",
-                day: "numeric",
-                hour: "numeric",
-                minute: "numeric",
-                hour12: true,
-              })
-            : "N/A"}
-        </div>
-      );
-    },
-  },
+        const save = () => {
+          updateField(row.original.id, "tags", value);
+          setEditingCell(null);
+        };
 
-  {
-    accessorKey: "notes",
-    header: "Notes",
-  },
-  {
-    accessorKey: "linkedinURL",
-    header: "LinkedIn",
-    cell: ({ row }) => (
-      <a
-        className="text-blue-600 underline"
-        href={row.getValue("linkedinURL")}
-        target="_blank"
-      >
-        <Linkedin className="w-4 h-4" />
-      </a>
-    ),
-  },
-  {
-    id: "actions",
-    cell: ({ row }) => {
-      const lead = row.original;
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(lead.email)}
-            >
-              Copy Email
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>View Details</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
+        return isEditing ? (
+          <Input
+            autoFocus
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+            onBlur={save}
+            onKeyDown={(e) => e.key === "Enter" && save()}
+          />
+        ) : (
+          <span
+            className="cursor-pointer hover:underline"
+            onClick={() => setEditingCell({ rowId: row.id, columnId: "tags", value })}
+          >
+            {value}
+          </span>
+        );
+      },
     },
-  },
-];
+    {
+      accessorKey: "location",
+      header: "Location",
+      ...editableCell("location"),
+    },
+    {
+      accessorKey: "notes",
+      header: "Notes",
+      ...editableCell("notes"),
+    },
+    {
+      accessorKey: "linkedinURL",
+      header: "LinkedIn",
+      ...editableCell("linkedinURL"),
+    },
+    {
+      id: "actions",
+      cell: ({ row }) => {
+        const lead = row.original;
+        return (
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="h-8 w-8 p-0">
+                <MoreHorizontal className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuLabel>Actions</DropdownMenuLabel>
+              <DropdownMenuItem
+                onClick={() => navigator.clipboard.writeText(lead.email)}
+              >
+                Copy Email
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>View Details</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        );
+      },
+    },
+  ];
+
+  return columns;
+}
+

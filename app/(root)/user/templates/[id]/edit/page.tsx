@@ -3,17 +3,15 @@
 import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowLeft, Save, Trash2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { mockTemplateData } from "@/lib/data/templatesData";
 import Link from "next/link";
+import { TemplateDetails } from "@/components/Templates/TemplateDetails";
 interface Template {
   id: string;
   name: string;
+  sender: string;
   subject: string;
   body: string;
   campaignsUsed: number;
@@ -28,6 +26,7 @@ export default function EditTemplatePage() {
   const id = params?.id as string | undefined;
 
   const [templateName, setTemplateName] = useState("");
+  const [sender, setSender] = useState("");
   const [subject, setSubject] = useState("");
   const [body, setBody] = useState("");
   const [originalTemplate, setOriginalTemplate] = useState<Template | null>(
@@ -39,6 +38,7 @@ export default function EditTemplatePage() {
       const template = mockTemplateData[id];
       setOriginalTemplate(template);
       setTemplateName(template.name);
+      setSender(template.sender);
       setSubject(template.subject);
       setBody(template.body);
     }
@@ -48,6 +48,7 @@ export default function EditTemplatePage() {
     console.log("Saving template:", {
       id,
       name: templateName,
+      sender,
       subject,
       body,
     });
@@ -98,7 +99,7 @@ export default function EditTemplatePage() {
 
   return (
     <div className="min-h-screen w-full bg-anti-flash-white overflow-x-hidden">
-      <main className="flex-1 w-full ">
+      <main className="flex-1 w-full h-screen flex flex-col">
         <header className="w-full bg-white text-foreground border-b-[1px] px-6 pt-1 h-[10vh] flex-between">
           <div className="flex flex-col">
             <h1 className="text-2xl font-bold text-charcoal">Edit Template</h1>
@@ -116,101 +117,51 @@ export default function EditTemplatePage() {
             </p>
           </div>
         </header>
-         <div className="w-full px-4 md:px-6 py-2">
-          <div className="flex justify-between items-center">
-            <Link href={`/user/templates`} className="block">
-              <Button
-                variant="ghost"
-                onClick={handleBack}
-                className="mb-4 text-medium-gray hover:text-charcoal hover:bg-muted"
-              >
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                Back to Templates
-              </Button>
-            </Link>
 
-            {/* Action Buttons */}
-          <div className="flex justify-between items-center gap-2 mb-2">
-            <Button
-              variant="destructive"
-              onClick={handleDelete}
-              className="bg-red-500 hover:bg-red-600 text-white"
-            >
-              <Trash2 className="w-4 h-4" />
-              Delete
-            </Button>
-
-            <Button
-              onClick={handleSave}
-              className="bg-cta hover:bg-cta-hover text-white"
-            >
-              <Save className="w-4 h-4 mr-2" />
-              Save
-            </Button>
-          </div>
-          </div>
-
-          {/* Template Form */}
-          <Card className="border-gray-200 shadow-sm">
-            <CardHeader className="border-b border-gray-100 bg-white">
-              <CardTitle className="text-xl text-charcoal">
-                Template Details
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="p-6 space-y-6">
-              {/* Template Name */}
-              <div className="space-y-2">
-                <Label
-                  htmlFor="templateName"
-                  className="text-charcoal font-medium"
+        <div className="flex-1 overflow-y-auto">
+          <div className="w-full px-4 md:px-6 py-2">
+            <div className="flex justify-between items-center">
+              <Link href={`/user/templates`} className="block">
+                <Button
+                  variant="ghost"
+                  onClick={handleBack}
+                  className="mb-4 text-medium-gray hover:text-charcoal hover:bg-muted"
                 >
-                  Template Name
-                </Label>
-                <Input
-                  id="templateName"
-                  value={templateName}
-                  onChange={(e) => setTemplateName(e.target.value)}
-                  placeholder="Enter template name"
-                  className="border-gray-300 focus:border-cta focus:ring-cta"
-                />
-              </div>
+                  <ArrowLeft className="w-4 h-4 mr-2" />
+                  Back to Templates
+                </Button>
+              </Link>
 
-              {/* Email Subject */}
-              <div className="space-y-2">
-                <Label htmlFor="subject" className="text-charcoal font-medium">
-                  Email Subject
-                </Label>
-                <Input
-                  id="subject"
-                  value={subject}
-                  onChange={(e) => setSubject(e.target.value)}
-                  placeholder="Enter email subject"
-                  className="border-gray-300 focus:border-cta focus:ring-cta"
-                />
-              </div>
+              {/* Action Buttons */}
+              <div className="flex justify-between items-center gap-2 mb-2">
+                <Button
+                  variant="destructive"
+                  onClick={handleDelete}
+                  className="bg-red-500 hover:bg-red-600 text-white"
+                >
+                  <Trash2 className="w-4 h-4" />
+                  Delete
+                </Button>
 
-              {/* Email Body */}
-              <div className="space-y-2">
-                <Label htmlFor="body" className="text-charcoal font-medium">
-                  Email Body
-                </Label>
-                <Textarea
-                  id="body"
-                  value={body}
-                  onChange={(e) => setBody(e.target.value)}
-                  placeholder="Enter email body content"
-                  rows={12}
-                  className="border-gray-300 focus:border-cta focus:ring-cta resize-none"
-                />
-                <p className="text-sm text-medium-gray">
-                  You can use variables like name, email, company in your
-                  template using double curly braces.
-                </p>
+                <Button onClick={handleSave} className="btn-fill">
+                  <Save className="w-4 h-4 mr-2" />
+                  Save
+                </Button>
               </div>
-            </CardContent>
-          </Card>
+            </div>
 
-          
+            {/* Template Form */}
+            <TemplateDetails
+              templateName={templateName}
+              setTemplateName={setTemplateName}
+              sender={sender}
+              setSender={setSender}
+              subject={subject}
+              setSubject={setSubject}
+              body={body}
+              setBody={setBody}
+            />
+          </div>
         </div>
       </main>
     </div>
